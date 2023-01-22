@@ -7,21 +7,28 @@ class HomeController < ApplicationController
     def create_playlist
 
         require_relative '../../.openai_key.rb'
+        require 'base64'
+
+        image_data = File.read("app/assets/images/dlogo.jpeg")
+        encoded_image_data = Base64.strict_encode64(image_data)
 
         spotify_user = RSpotify::User.new(session[:spotify_user_data])
-
-        song = params[:text_song].squish
-        artist = params[:text_artist].squish
-
         client = OpenAI::Client.new(access_token: $openai_key)
 
-        tracks = RSpotify::Track.search('Know')
+        text_song = params[:text_song].squish
+        text_artist = params[:text_artist].squish
+
+        search_track = RSpotify::Track.search("#{text_song} - #{text_artist}").first
+        search_track_name = search_track.name
+        search_track_artist = search_track.artists.first.name
+
+        var_temp = 0.7
 
         response = client.completions(
             parameters: {
                 model: "text-davinci-003",
-                prompt: "Create in a one column : a playlist of 30 songs made by different artists in the style of #{artist}'s \"#{song}\" music. Items must be separate by |. Song and artist must be separate by -. Don't write the feats, only the main music artist.",
-                temperature: 1,
+                prompt: "Create in one column : a playlist of 30 songs made by different artists in the style of #{text_artist}'s \"#{text_song}\" music. Items must be separated by |. Song and artist must be separate by -. Don't write the feats, only the main music artist.",
+                temperature: var_temp,
                 max_tokens: 1000,
                 top_p: 1,
                 frequency_penalty: 0,
@@ -37,7 +44,7 @@ class HomeController < ApplicationController
         
         @myArray = reponse_ai.split("|")
 
-        playlist = spotify_user.create_playlist!("Djai.app | #{song} - #{artist}")
+
         temp_playlist = []
 
         for song in @myArray do
@@ -47,10 +54,15 @@ class HomeController < ApplicationController
 
         end
 
+        playlist = spotify_user.create_playlist!("Djai.app | #{search_track_name} - #{search_track_artist}")
         playlist.add_tracks!(temp_playlist)
+
+        playlist.replace_image!(encoded_image_data, 'image/jpeg')
 
         redirect_to root_path
 
     end
 
 end
+
+
