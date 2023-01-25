@@ -35,12 +35,9 @@ class UsersController < ApplicationController
         stripe_subscription_id: stripe_session.subscription,
         active: true
       )
-      redirect_to :users_info, notice: "Subscription to Bronze Plan successful!"
-      puts "Subscription to Bronze Plan successful!"
-      puts "____________________________________"
-      puts "____________________________________"
-      puts "____________________________________"
-      puts "____________________________________"
+      current_user.profile.credits = 10
+      current_user.profile.save
+      redirect_to root_path, notice: "Subscription to Djai.app premium successful!"
     end
   end
 

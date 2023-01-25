@@ -1,8 +1,16 @@
-<div class="flex flex-col m-5">
-  <%= form_tag url_for(:controller => 'home', :action => 'create_playlist'), method: :post do %>
-    <%= text_field_tag :text_song, "", class: "relative block w-full rounded-none rounded-t-md border-gray-300 bg-transparent focus:z-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm", placeholder: "Song" %>
-    <%= text_field_tag :text_artist, "", class: "relative block w-full rounded-none rounded-b-md border-gray-300 bg-transparent focus:z-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm", placeholder: "Artist" %>
-    <%= submit_tag "Submit", class: "w-full mt-4 justify-center inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
-  <% end %>
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-spotify-noir py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <%= form_tag url_for(:controller => 'home', :action => 'create_playlist'), method: :post, class: 'space-y-6' do %>
+        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-spotify-blanc">Generate a playlist based on one song</h2>
+        <%= text_field_tag :text_song, "", :required => true, class: "px-4 py-3 block w-full text-spotify-blanc rounded-md border-none bg-spotify-gris placeholder-gray-400 focus:border-spotify-vert focus:outline-none focus:ring-spotify-vert sm:text-sm", placeholder: "Song" %>
+        <%= text_field_tag :text_artist, "", :required => true, class: "px-4 py-3 block w-full text-spotify-blanc rounded-md border-none bg-spotify-gris placeholder-gray-400 focus:border-spotify-vert focus:outline-none focus:ring-spotify-vert sm:text-sm", placeholder: "Artist" %>
+        <% if session[:spotify_user_data].nil? and user_signed_in? %>
+          <%= button_to 'Submit', '/auth/spotify', method: :post, class: "cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
+        <% else %>
+          <%= submit_tag "Submit", class: "cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0rC5MDJ7qPe8fe1RJioAos?utm_source=generator&theme=0" width="100%" height="500" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>

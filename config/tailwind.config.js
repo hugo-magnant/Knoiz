@@ -12,6 +12,16 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        'spotify': {
+          'vert': '#0EAD69',
+          'vert-hover': '#11D07D',
+          'gris': '#032616',
+          'noir': '#02130B',
+          'blanc': '#ECFDF6',
+          'orange': '#F9A62B',
+        },
+        },
     },
   },
   plugins: [

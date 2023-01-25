@@ -8,15 +8,21 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+  get '/home/faq', to: 'home#faq', :as => :faq
+  get '/home/pricing', to: 'home#pricing', :as => :pricing
 
-  get '/auth/spotify/callback', to: 'users#spotify'
+  
+  get '/auth/spotify/callback', to: 'users#spotify', :as => :spotify
+
   get '/create_playlist', to: 'home#create_playlist'
-
   post 'create_playlist', to: 'home#create_playlist'
 
   get 'pricing', to: 'pricing#index'
 
-  resources :users
+  get '/users/charge', to: 'users#charge'
+  get '/users/info', to: 'users#info'
+  get '/users/reset_credits_unsubscribe', to: 'users#reset_credits_unsubscribe'
+  get '/users/reset_credits_subscribe', to: 'users#reset_credits_subscribe'
 
   post '/checkout_session/create', to: 'checkout_session#create'
 
