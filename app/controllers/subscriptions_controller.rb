@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
       success_url: root_url,
       cancel_url: new_subscription_url,
       line_items: [
-        {price: 'price_1MT4RXDY9Oz58rvRI8tp1tGB', quantity: 1},
+        {price: 'price_1MSzZMDY9Oz58rvRDWmzrJbq', quantity: 1},
       ],
       mode: 'subscription',
     })

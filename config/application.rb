@@ -1,6 +1,7 @@
 require_relative "boot"
-require_relative '../.spotify_key.rb'
 require "rails/all"
+
+require 'dotenv/load'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,7 +20,7 @@ module Djai
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    RSpotify::authenticate("#{$spotify_id}", "#{$spotify_key}")
+    RSpotify::authenticate(ENV['SPOTIFY_ID'], ENV['SPOTIFY_KEY'])
     config.session_store :cookie_store, key: SecureRandom.hex(32)
 
   end

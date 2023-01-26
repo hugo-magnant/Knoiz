@@ -5,7 +5,7 @@ ruby "3.0.2"
 
 gem "bootsnap", require: false
 gem 'devise'
-gem 'dotenv-rails'
+gem 'dotenv-rails', groups: [:development, :test]
 gem "importmap-rails"
 gem "jbuilder"
 gem 'pg'
