@@ -5,6 +5,7 @@ ruby "3.0.2"
 
 gem "bootsnap", require: false
 gem 'devise'
+gem 'dotenv-rails'
 gem "importmap-rails"
 gem "jbuilder"
 gem 'pg'
@@ -56,11 +57,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
-end
-
-
-group :production do
-  require_relative '.spotify_key.rb'
-  require_relative '.openai_key.rb'
-  require_relative '.stripe_key.rb'
 end

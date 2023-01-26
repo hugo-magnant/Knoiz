@@ -21,14 +21,13 @@ class HomeController < ApplicationController
         if user_signed_in? and session[:spotify_user_data]
             if current_user.profile.credits > 0
 
-                require_relative '../../.openai_key.rb'
                 require 'base64'
     
                 image_data = File.read("app/assets/images/dlogo.jpeg")
                 encoded_image_data = Base64.strict_encode64(image_data)
     
                 spotify_user = RSpotify::User.new(session[:spotify_user_data])
-                client = OpenAI::Client.new(access_token: $openai_key)
+                client = OpenAI::Client.new(access_token: ENV['OPENAI_KEY'])
     
                 text_song = params[:text_song].squish
                 text_artist = params[:text_artist].squish

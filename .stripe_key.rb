@@ -1,2 +1,0 @@
-$stripe_key = "sk_test_51MSNsPDY9Oz58rvRS78zE7TCyFzMnH7acJiTIv8k398i7QdQjnYzkKulctpNkJfuA10342FGfsLQj6K0P6uVjhto004vyW7zsh"
-$stripe_key_save = "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"

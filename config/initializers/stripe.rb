@@ -1,4 +1,3 @@
 require 'stripe'
-require_relative '../../.stripe_key.rb'
 
-Stripe.api_key = "#{$stripe_key}"
+Stripe.api_key = ENV['STRIPE_KEY']
