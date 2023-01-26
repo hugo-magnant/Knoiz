@@ -21,4 +21,4 @@ production:
   database: djai_production
   pool: 5
   username: djai
-  password: <%= require_relative('../.db_key.rb') %>
+  password: djai
