@@ -60,7 +60,7 @@ end
 
 
 group :production do
-  require_relative '.spotify_key'
-  require_relative '.openai_key'
-  require_relative '.stripe_key'
+  require_relative '.spotify_key.rb'
+  require_relative '.openai_key.rb'
+  require_relative '.stripe_key.rb'
 end
