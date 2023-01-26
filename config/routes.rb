@@ -1,17 +1,16 @@
 Rails.application.routes.draw do
+
   get 'subscriptions/new'
   get 'subscriptions/create'
   get 'subscriptions/update'
   get 'subscriptions/cancel'
-  devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
+  devise_for :users
+
   root "home#index"
   get '/home/faq', to: 'home#faq', :as => :faq
   get '/home/pricing', to: 'home#pricing', :as => :pricing
 
-  
   get '/auth/spotify/callback', to: 'users#spotify', :as => :spotify
 
   get '/create_playlist', to: 'home#create_playlist'

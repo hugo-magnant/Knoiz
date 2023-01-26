@@ -7,12 +7,12 @@ gem "bootsnap", require: false
 gem 'devise'
 gem "importmap-rails"
 gem "jbuilder"
+gem 'pg'
 gem "puma", "~> 5.0"
 gem "rails", "~> 7.0.4", ">= 7.0.4.1"
 gem "rspotify"
 gem "ruby-openai"
 gem "sprockets-rails"
-gem "sqlite3", "~> 1.4"
 gem "stimulus-rails"
 gem 'stripe'
 gem "tailwindcss-rails"

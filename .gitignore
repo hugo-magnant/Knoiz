@@ -40,3 +40,4 @@
 .openai_key.rb
 .spotify_key.rb
 .stripe_key.rb
+.db_key.rb
