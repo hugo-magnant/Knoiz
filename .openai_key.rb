@@ -1,0 +1,1 @@
+$openai_key = "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"
