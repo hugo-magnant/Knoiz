@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
       success_url: root_url,
       cancel_url: new_subscription_url,
       line_items: [
-        {price: 'price_1MSzZMDY9Oz58rvRDWmzrJbq', quantity: 1},
+        {price: 'price_1MT4RXDY9Oz58rvRI8tp1tGB', quantity: 1},
       ],
       mode: 'subscription',
     })
@@ -20,7 +20,7 @@ class SubscriptionsController < ApplicationController
       customer: customer_id,
       items: [{plan: 'premium_plan'}],
     })
-    current_user.subscription.update(subscription_id: subscription.id, subscription_status: "active")
+    @current_user.subscription.update(subscription_id: subscription.id, subscription_status: "active")
     redirect_to subscriptions_success_path
   rescue Stripe::StripeError => e
     flash[:error] = e.message

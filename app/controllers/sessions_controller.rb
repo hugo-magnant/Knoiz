@@ -1,6 +1,47 @@
 class SessionsController < ApplicationController
-    def destroy
-      reset_session
-      redirect_to login_path
+
+  def create
+    
+    auth_hash = request.env['omniauth.auth']
+    spotify_user = RSpotify::User.new(auth_hash)
+    session[:spotify_user_data] = spotify_user.to_hash
+    session[:access_token] = spotify_user.credentials.token
+    @user = User.find_by(spotify_id: spotify_user.id)
+    if @user.nil?
+        # Create a new user if they don't exist
+        @user = User.create(
+          username: spotify_user.display_name,
+          email: spotify_user.email,
+          spotify_id: spotify_user.id,
+        )
+
+        @user.profile.update(access_token: auth_hash.credentials.token, refresh_token: auth_hash.credentials.refresh_token)
+        if spotify_user.images.any?
+          @user.profile.update(image: spotify_user.images.first['url'])
+        else
+          @user.profile.update(image: nil)
+        end
+
+    else
+        # Update the access_token and refresh_token if the user exists
+        @user.update(username: spotify_user.display_name, email: spotify_user.email)
+        @user.profile.update(access_token: auth_hash.credentials.token, refresh_token: auth_hash.credentials.refresh_token)
+        if spotify_user.images.any?
+          @user.profile.update(image: spotify_user.images.first['url'])
+        else
+          @user.profile.update(image: nil)
+        end
+
     end
+
+    session[:user_id] = @user.id
+    redirect_to root_path, notice: "Welcome, #{@user.username}!"
+
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to login_path, notice: "Logged out!"
+  end
+  
 end

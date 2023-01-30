@@ -61,7 +61,7 @@
     </button>
     <div class="flex flex-1 w-full justify-end">
       <div class="ml-4 flex items-center md:ml-6">
-        <% if user_signed_in? and 1 == 2%>
+        <% if session[:user_id] and 1 == 2%>
           <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "m-2 inline-flex items-center rounded-full border border-transparent bg-spotify-vert px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover" %>
         <% end %>
       </div>

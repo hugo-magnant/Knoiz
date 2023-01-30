@@ -1,8 +1,6 @@
 class HomeController < ApplicationController
 
-
     before_action :authenticate_user, only: [:create_playlist]
-    before_action :authenticate_spotify, only: [:create_playlist]
 
     def index
 
@@ -18,14 +16,14 @@ class HomeController < ApplicationController
 
     def create_playlist
 
-        if user_signed_in? and session[:spotify_user_data]
-            if current_user.profile.credits > 0
+        if !session[:user_id].nil?
+            if @current_user.profile.credits > 0
 
                 require 'base64'
     
                 image_data = File.read("app/assets/images/dlogo.jpeg")
                 encoded_image_data = Base64.strict_encode64(image_data)
-    
+
                 spotify_user = RSpotify::User.new(session[:spotify_user_data])
                 client = OpenAI::Client.new(access_token: ENV['OPENAI_KEY'])
     
@@ -73,8 +71,8 @@ class HomeController < ApplicationController
     
                 playlist.replace_image!(encoded_image_data, 'image/jpeg')
     
-                current_user.profile.credits -= 1
-                current_user.profile.save
+                @current_user.profile.credits -= 1
+                @current_user.profile.save
     
                 redirect_to root_path
     
@@ -87,16 +85,9 @@ class HomeController < ApplicationController
 
     private
 
-    def authenticate_spotify
-        unless session[:spotify_user_data]
-            flash[:alert] = "You must be logged in to spotify."
-            redirect_to root_path
-        end
-    end
-
     def authenticate_user
-        if !user_signed_in?
-            redirect_to new_user_session_path
+        if session[:user_id].nil?
+            redirect_to root_path, alert: "You must be logged in to spotify."
         end
     end
 

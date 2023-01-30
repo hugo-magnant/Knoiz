@@ -21,9 +21,8 @@ module Djai
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.require_master_key = true
-
+    
     RSpotify::authenticate(ENV['SPOTIFY_ID'], ENV['SPOTIFY_KEY'])
-    config.session_store :cookie_store, key: SecureRandom.hex(32)
 
   end
 end

@@ -6,7 +6,7 @@ class CheckoutSessionController < ApplicationController
         mode: 'subscription',
         line_items: [{
           quantity: 1,
-          price: 'price_1MSzZMDY9Oz58rvRDWmzrJbq'
+          price: 'price_1MT4RXDY9Oz58rvRI8tp1tGB'
         }],
         success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: "#{request.base_url}/users/info",
@@ -21,7 +21,7 @@ class CheckoutSessionController < ApplicationController
   def create_portal_session
     begin
       session = Stripe::BillingPortal::Session.create({
-        customer: current_user.subscription.stripe_user_id,
+        customer: @current_user.subscription.stripe_user_id,
         return_url: "#{request.base_url}/users/manage"
       })
       redirect_to session.url, status: 303, allow_other_host: true

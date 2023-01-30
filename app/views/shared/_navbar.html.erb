@@ -124,29 +124,30 @@
         </a>
       </nav>
     </div>
-    <%  if user_signed_in? %>
-      <% if !session[:spotify_user_data] %>
-        <%= link_to 'Sign in with Spotify', '/auth/spotify', method: :post, class: "m-2 text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
-      <% end %>
+    <% if !session[:user_id] %>
+      <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "m-2 text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
+    <% else %>
       <div class="flex flex-shrink-0 bg-spotify-gris p-4">
         <a href="#" class="group block w-full flex-shrink-0">
           <div class="flex items-center">
             <div>
-              <img class="inline-block h-9 w-9 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              <% if @current_user.profile.image.nil? %>
+                <%= image_tag "profile.jpg" , class: "inline-block h-9 w-9 rounded-full" %>
+              <% else %>
+                <%= image_tag @current_user.profile.image , class: "inline-block h-9 w-9 rounded-full" %>
+              <% end %>
+              
             </div>
             <div class="ml-3">
-              <% if current_user.subscription.active == false %>
-                <p class="text-sm font-medium <% if current_user.profile.credits < 1 %>text-spotify-orange<% else %>text-white<% end %>"><%= current_user.profile.credits %> credits</p>
+              <% if @current_user.subscription.active == false %>
+                <p class="text-sm font-medium <% if @current_user.profile.credits < 1 %>text-spotify-orange<% else %>text-white<% end %>"><%= @current_user.profile.credits %> credits</p>
               <% end %>
-              <p class="text-sm font-medium text-white"><%= current_user.profile.username %></p>
+              <p class="text-sm font-medium text-white"><%= @current_user.username %></p>
               <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
             </div>
           </div>
         </a>
       </div>
-    <% else %>
-      <%= link_to "Sign in", new_user_session_path, class: "m-2 text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
-      <%= link_to "Sign up", new_user_registration_path, class: "m-2 text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
     <% end %>
   </div>
 </div>

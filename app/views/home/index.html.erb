@@ -5,7 +5,7 @@
         <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-spotify-blanc">Generate a playlist based on one song</h2>
         <%= text_field_tag :text_song, "", :required => true, class: "px-4 py-3 block w-full text-spotify-blanc rounded-md border-none bg-spotify-gris placeholder-gray-400 focus:border-spotify-vert focus:outline-none focus:ring-spotify-vert sm:text-sm", placeholder: "Song" %>
         <%= text_field_tag :text_artist, "", :required => true, class: "px-4 py-3 block w-full text-spotify-blanc rounded-md border-none bg-spotify-gris placeholder-gray-400 focus:border-spotify-vert focus:outline-none focus:ring-spotify-vert sm:text-sm", placeholder: "Artist" %>
-        <% if session[:spotify_user_data].nil? and user_signed_in? %>
+        <% if session[:spotify_user_data].nil? and session[:user_id] %>
           <%= button_to 'Submit', '/auth/spotify', method: :post, class: "cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
         <% else %>
           <%= submit_tag "Submit", class: "cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>

@@ -1,8 +1,6 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
 
   has_one :subscription
   has_one :profile
@@ -17,6 +15,19 @@ class User < ApplicationRecord
   def create_profile
     self.create_profile!
   end
+  
+  
+  def self.from_omniauth(auth)
+    user = User.find_or_create_by(spotify_id: auth.uid)
+    user.update(
+      name: auth.info.name,
+      email: auth.info.email,
+      spotify_token: auth.credentials.token,
+      spotify_refresh_token: auth.credentials.refresh_token
+    )
+    user
+  end
+
 
   def reset_credits_unsubscribe
     # Sélectionne les utilisateurs qui n'ont pas d'abonnement actif

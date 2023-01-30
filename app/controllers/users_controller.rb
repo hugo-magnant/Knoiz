@@ -1,16 +1,11 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_user!
+  def create 
 
-  def spotify
-    spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
-    session[:spotify_user_data] = spotify_user.to_hash
-    session[:access_token] = spotify_user.credentials.token
-    redirect_to root_path
   end
 
   def info
-    @subscription = current_user.subscription
+    @subscription = @current_user.subscription
     if @subscription.stripe_subscription_id.present?
       ss = Stripe::Subscription.retrieve(@subscription.stripe_subscription_id)
       stripe_product = Stripe::Product.retrieve(ss.items.data.first.plan.product)
@@ -30,19 +25,19 @@ class UsersController < ApplicationController
     if stripe_session_id
       puts "Redirected here from Stripe subscription signup: #{stripe_session_id}"
       stripe_session = Stripe::Checkout::Session.retrieve(stripe_session_id)
-      current_user.subscription.update(
+      @current_user.subscription.update(
         stripe_user_id: stripe_session.customer,
         stripe_subscription_id: stripe_session.subscription,
         active: true
       )
-      current_user.profile.credits = 10
-      current_user.profile.save
+      @current_user.profile.credits = 10000
+      @current_user.profile.save
       redirect_to root_path, notice: "Subscription to Djai.app premium successful!"
     end
   end
 
   def manage
-    @subscription = current_user.subscription
+    @subscription = @current_user.subscription
     ss = Stripe::Subscription.retrieve(@subscription.stripe_subscription_id)
     if ss.canceled_at.present?
       # at some point need to set subscription to inactive but only at period end, either webhooks or background processing/cron?
