@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
     before_action :set_current_user
     before_action :check_stripe_subscription
+    before_action :access_token_refreshing
 
     def set_current_user
         if !session[:user_id].nil?
@@ -21,8 +22,27 @@ class ApplicationController < ActionController::Base
                 @current_user.subscription.stripe_user_id = ""
                 @current_user.subscription.stripe_subscription_id = ""
                 @current_user.subscription.save
-                @current_user.profile.credits = 0
-                @current_user.profile.save
+                @current_user.wallet.credits = 1
+                @current_user.wallet.save
+            end
+        end
+    end
+
+    def access_token_refreshing
+        if !session[:user_id].nil?
+            if @current_user.profile.updated_at < 1.hour.ago
+ 
+                new_spotify_user = RSpotify::User.new(session[:spotify_user_data])
+                session[:spotify_user_data] = new_spotify_user.to_hash
+
+                @current_user.update(username: new_spotify_user.display_name, email: new_spotify_user.email)
+                @current_user.profile.update(timestamp: Time.now)
+                if new_spotify_user.images.any?
+                  @current_user.profile.update(image: new_spotify_user.images.first['url'])
+                else
+                  @current_user.profile.update(image: nil)
+                end
+
             end
         end
     end

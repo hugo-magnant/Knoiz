@@ -1,0 +1,16 @@
+<div class="bg-spotify-noir w-full py-8 px-8 sm:px-6 lg:px-8 rounded-3xl">
+  <h2 class="sr-only">Products</h2>
+  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 xl:gap-x-8">
+    <% i = 1 %>
+    <% @recently_played.each do |song| %>
+      <a href="#" class="group">
+        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+          <img src="<%= song.album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+        </div>
+        <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= song.name %></h3>
+        <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= song.artists.first.name %></p>
+      </a>
+      <% i = i + 1 %>
+    <% end %>
+  </div>
+</div>

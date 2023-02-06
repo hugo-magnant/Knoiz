@@ -4,9 +4,11 @@ class User < ApplicationRecord
 
   has_one :subscription
   has_one :profile
+  has_one :wallet
   
   after_create :create_subscription
   after_create :create_profile
+  after_create :create_wallet
 
   def create_subscription
     Subscription.create(user_id: id) if subscription.nil?
@@ -14,6 +16,10 @@ class User < ApplicationRecord
 
   def create_profile
     self.create_profile!
+  end
+
+  def create_wallet
+    self.create_wallet!
   end
   
   
@@ -28,19 +34,18 @@ class User < ApplicationRecord
     user
   end
 
-
   def reset_credits_unsubscribe
     # Sélectionne les utilisateurs qui n'ont pas d'abonnement actif
     unsubscribe_users = User.joins(:subscription).where(subscriptions: { active: false })
     # Réinitialise la valeur de crédits pour les utilisateurs sélectionnés
-    unsubscribe_users.each { |user| user.profile.update(credits: 1) }
+    unsubscribe_users.each { |user| user.wallet.update(credits: 1) }
   end
 
   def reset_credits_subscribe
     # Sélectionne les utilisateurs qui n'ont pas d'abonnement actif
     subscribe_users = User.joins(:subscription).where(subscriptions: { active: true })
     # Réinitialise la valeur de crédits pour les utilisateurs sélectionnés
-    subscribe_users.each { |user| user.profile.update(credits: 100) }
+    subscribe_users.each { |user| user.wallet.update(credits: 100) }
   end
 
 end

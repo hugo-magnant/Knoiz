@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['-apple-system', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         'spotify': {
@@ -20,6 +20,7 @@ module.exports = {
           'noir': '#02130B',
           'blanc': '#ECFDF6',
           'orange': '#F9A62B',
+          'text-gris': '#B8C2BE',
         },
         },
     },

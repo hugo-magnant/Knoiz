@@ -15,7 +15,8 @@ class UsersController < ApplicationController
       }
       @subscription_info = {
         renews_on: Time.at(ss.current_period_end).strftime("%Y-%m-%d"),
-        canceled_at: ss.canceled_at.present? ? Time.at(ss.canceled_at).strftime("%Y-%m-%d") : nil
+        canceled_at: ss.canceled_at.present? ? Time.at(ss.canceled_at).strftime("%Y-%m-%d") : nil,
+        ends_on: ss.canceled_at.present? ? Time.at(ss.canceled_at).strftime("%Y-%m-%d") : Time.at(ss.current_period_end).strftime("%Y-%m-%d")
       }
     end
   end
@@ -30,21 +31,9 @@ class UsersController < ApplicationController
         stripe_subscription_id: stripe_session.subscription,
         active: true
       )
-      @current_user.profile.credits = 10000
-      @current_user.profile.save
-      redirect_to root_path, notice: "Subscription to Djai.app premium successful!"
-    end
-  end
-
-  def manage
-    @subscription = @current_user.subscription
-    ss = Stripe::Subscription.retrieve(@subscription.stripe_subscription_id)
-    if ss.canceled_at.present?
-      # at some point need to set subscription to inactive but only at period end, either webhooks or background processing/cron?
-      # current_user.subscription.update(active: false)
-      redirect_to :users_info, notice: "Request to cancel subscription received"
-    else
-      redirect_to :users_info
+      @current_user.wallet.credits = 10000
+      @current_user.wallet.save
+      redirect_to root_path, notice: "Subscription to Djai.app premium successful !"
     end
   end
 

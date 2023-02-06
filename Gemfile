@@ -14,6 +14,7 @@ gem 'rspotify'
 gem "ruby-openai"
 gem "sprockets-rails"
 gem "stimulus-rails"
+gem 'sidekiq'
 gem 'stripe'
 gem "tailwindcss-rails"
 gem "turbo-rails"
