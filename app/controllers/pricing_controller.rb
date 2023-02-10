@@ -1,37 +1,10 @@
-class HomeController < ApplicationController
-
+class PricingController < ApplicationController
+    
     before_action :authenticate_user, only: [:create_playlist]
     before_action :access_token_refreshing, only: [:create_playlist]
 
     def index
 
-    end
-
-    def create_playlist
-
-        if !session[:user_id].nil?
-            if @current_user.wallet.credits > 0
-
-                require_relative '../workers/playlist.rb'
-
-                spotify_user_content = session[:spotify_user_data]
-                spotify_user_id = @current_user.id
-
-                puts spotify_user_content
-
-                text_song = params[:text_song].squish
-                text_artist = params[:text_artist].squish
-
-                Playlist.perform_async(text_song, text_artist, spotify_user_content, spotify_user_id)
-
-                flash[:notice] = "Your playlist is being created !"
-                redirect_to root_path
-
-            else
-                flash[:alert] = "You don't have enough credits to perform this action"
-                redirect_to root_path
-            end
-        end
     end
 
     private
@@ -62,5 +35,3 @@ class HomeController < ApplicationController
     end
 
 end
-
-

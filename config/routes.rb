@@ -4,13 +4,13 @@ Rails.application.routes.draw do
 
   root "home#index"
   post '/create_playlist', to: 'home#create_playlist'
-  get '/home/pricing', to: 'home#pricing', :as => :pricing
-  get '/home/faq', to: 'home#faq', :as => :faq
+
+  get '/pricing/index', to: 'pricing#index', :as => :pricing
 
 
   get '/stats/index', to: 'stats#index', :as => :stats
-  get '/stats/recently', to: 'stats#recently', :as => :recently
   get '/stats/tops', to: 'stats#tops', :as => :tops
+  get '/stats/recently', to: 'stats#recently', :as => :recently
   get '/stats/top_global', to: 'stats#top_global', :as => :top_global
   
 

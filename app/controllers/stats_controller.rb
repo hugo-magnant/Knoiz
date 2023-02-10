@@ -22,15 +22,7 @@ class StatsController < ApplicationController
                 # Accordéon des genres écoutés
 
                 temp_top_tracks = []
-                temp_top_artists_short_term = spotify_user.top_tracks(limit: 50, offset: 0, time_range: 'short_term')
-                temp_top_artists_medium_term = spotify_user.top_tracks(limit: 50, offset: 0, time_range: 'medium_term')
                 temp_top_artists_long_term = spotify_user.top_tracks(limit: 50, offset: 0, time_range: 'long_term')
-                temp_top_artists_short_term.each do |track|
-                    temp_top_tracks.append(track)
-                end
-                temp_top_artists_medium_term.each do |track|
-                    temp_top_tracks.append(track)
-                end
                 temp_top_artists_long_term.each do |track|
                     temp_top_tracks.append(track)
                 end
@@ -96,9 +88,14 @@ class StatsController < ApplicationController
             @top_global_tracks = top_global_playlist_preview.tracks.take(5)
 
         end
+
+        params[:page] = "stats"
+
     end
 
     def recently
+
+        params[:page] = "recently"
 
         if !session[:user_id].nil?
 
@@ -117,6 +114,8 @@ class StatsController < ApplicationController
     end
 
     def tops
+
+        params[:page] = "tops"
 
         if !session[:user_id].nil?
 
@@ -164,6 +163,8 @@ class StatsController < ApplicationController
         # Extraction de la playlist top 50 global pour tracks du moment
 
         @top_global_playlist = RSpotify::Playlist.find_by_id('37i9dQZEVXbMDoHDwVN2tF')
+        
+        params[:page] = "top_global"
 
     end
 

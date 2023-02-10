@@ -1,57 +1,224 @@
-<div class="bg-spotify-noir w-full py-8 px-8 sm:px-6 lg:px-8 rounded-3xl">
-  <h2 class="sr-only">Products</h2>
-  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 xl:gap-x-8">
-
-    <% i = 1 %>
-    <% @top_tracks_long_term.each do |track| %>
-      <a href="#" class="group">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
-          <img src="<%= track.album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+<div  data-controller="tops" class="flex flex-col bg-spotify-noir w-full py-8 px-8 sm:px-6 lg:px-8 rounded-3xl">
+  <!-- Header Part -->
+  <div class="flex flex-row justify-between mb-6">
+    <h1 class="text-3xl font-medium text-spotify-blanc">Your top Listened</h1>
+    <div>
+      <div x-data="{ dropdown: false }" class="relative inline-block text-left">
+        <div>
+          <button @click="dropdown = !dropdown" type="button" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
+            <p id="object-type">Tracks</p> 
+            <!-- Heroicon name: mini/chevron-down -->
+            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+          </button>
         </div>
-        <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= track.name %></h3>
-        <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= track.artists.first.name %></p>
-      </a>
-      <% i = i + 1 %>
-    <% end %>
-
+        <div 
+          @click.outside="dropdown = false"
+          x-show="dropdown"
+          x-transition:enter="transition ease-out duration-100"
+          x-transition:enter-start="transform opacity-0 scale-95"
+          x-transition:enter-end="transform opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-75"
+          x-transition:leave-start="transform opacity-100 scale-100"
+          x-transition:leave-end="transform opacity-0 scale-95"
+          class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabindex="-1">
+          <div class="py-1" role="none">
+            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+            <a data-action="click->tops#tracks" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Tracks</a>
+            <a data-action="click->tops#artists" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Artists</a>
+            <a data-action="click->tops#albums" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Albums</a>
+          </div>
+        </div>
+      </div>
+      <div x-data="{ dropdown: false }" class="relative inline-block text-left">
+        <div>
+          <button @click="dropdown = !dropdown" type="button" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
+            <p id="object-term">1 month</p> 
+            <!-- Heroicon name: mini/chevron-down -->
+            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <div 
+          @click.outside="dropdown = false"
+          x-show="dropdown"
+          x-transition:enter="transition ease-out duration-100"
+          x-transition:enter-start="transform opacity-0 scale-95"
+          x-transition:enter-end="transform opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-75"
+          x-transition:leave-start="transform opacity-100 scale-100"
+          x-transition:leave-end="transform opacity-0 scale-95"
+          class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabindex="-1">
+          <div class="py-1" role="none">
+            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+            <a data-action="click->tops#short_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">1 month</a>
+            <a data-action="click->tops#medium_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">6 months</a>
+            <a data-action="click->tops#long_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">+1 year</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
-
-<div class="bg-spotify-noir w-full py-8 px-8 sm:px-6 lg:px-8 rounded-3xl">
-  <h2 class="sr-only">Products</h2>
-  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 xl:gap-x-8">
-
-    <% i = 1 %>
-    <% @top_albums_long_term.each do |album| %>
-      <a href="#" class="group">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
-          <img src="<%= album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+  <div>
+    <!-- Tracks Part -->
+    <div id="tracks" class="">
+      <!-- Tracks Short Part -->
+      <div id="short_term_tracks" class="">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_tracks_short_term.each do |track| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= track.album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= track.name %></h3>
+              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= track.artists.first.name %></p>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
         </div>
-        <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= album.name %></h3>
-        <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= album.artists.first.name %></p>
-      </a>
-      <% i = i + 1 %>
-    <% end %>
-
-  </div>
-</div>
-
-
-<div class="bg-spotify-noir w-full py-8 px-8 sm:px-6 lg:px-8 rounded-3xl">
-  <h2 class="sr-only">Products</h2>
-  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 xl:gap-x-8">
-
-    <% i = 1 %>
-    <% @top_artists_medium_term.each do |artist| %>
-      <a href="#" class="group">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
-          <img src="<%= artist.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+      </div>
+      <!-- Tracks Medium Part -->
+      <div id="medium_term_tracks" class="hidden">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_tracks_medium_term.each do |track| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= track.album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= track.name %></h3>
+              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= track.artists.first.name %></p>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
         </div>
-        <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= artist.name %></h3>
-      </a>
-      <% i = i + 1 %>
-    <% end %>
-
+      </div>
+      <!-- Tracks Long Part -->
+      <div id="long_term_tracks" class="hidden">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_tracks_long_term.each do |track| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= track.album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= track.name %></h3>
+              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= track.artists.first.name %></p>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Artists Part -->
+    <div id="artists" class="hidden">
+      <!-- Artists Short Part -->
+      <div id="short_term_artists" class="">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_artists_short_term.each do |artist| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= artist.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= artist.name %></h3>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
+        </div>
+      </div>
+      <!-- Artists Medium Part -->
+      <div id="medium_term_artists" class="hidden">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_artists_medium_term.each do |artist| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= artist.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= artist.name %></h3>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
+        </div>
+      </div>
+      <!-- Artists Long Part -->
+      <div id="long_term_artists" class="hidden">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_artists_long_term.each do |artist| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= artist.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= artist.name %></h3>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Albums Part -->
+    <div id="albums" class="hidden">
+      <!-- Albums Short Part -->
+      <div id="short_term_albums" class="">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_albums_short_term.each do |album| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= album.name %></h3>
+              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= album.artists.first.name %></p>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
+        </div>
+      </div>
+      <!-- Albums Medium Part -->
+      <div id="medium_term_albums" class="hidden">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_albums_medium_term.each do |album| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= album.name %></h3>
+              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= album.artists.first.name %></p>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
+        </div>
+      </div>
+      <!-- Albums Long Part -->
+      <div id="long_term_albums" class="hidden">
+        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+          <% i = 1 %>
+          <% @top_albums_long_term.each do |album| %>
+            <a href="#" class="group">
+              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
+                <img src="<%= album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+              </div>
+              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= album.name %></h3>
+              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= album.artists.first.name %></p>
+            </a>
+            <% i = i + 1 %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

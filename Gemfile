@@ -13,8 +13,8 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.1"
 gem 'rspotify'
 gem "ruby-openai"
 gem "sprockets-rails"
-gem "stimulus-rails"
 gem 'sidekiq'
+gem "stimulus-rails"
 gem 'stripe'
 gem "tailwindcss-rails"
 gem "turbo-rails"

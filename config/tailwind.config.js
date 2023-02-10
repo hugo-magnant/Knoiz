@@ -16,9 +16,11 @@ module.exports = {
         'spotify': {
           'vert': '#0EAD69',
           'vert-hover': '#11D07D',
-          'gris': '#032616',
-          'noir': '#02130B',
+          'gris': '#141414',
+          'noir-2': '#0A0A0A',
+          'noir': '#000000',
           'blanc': '#ECFDF6',
+          'blanc-gris': '#CCCCCC',
           'orange': '#F9A62B',
           'text-gris': '#B8C2BE',
         },
