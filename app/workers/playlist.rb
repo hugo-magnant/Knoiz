@@ -12,6 +12,10 @@ class Playlist
 
         spotify_user = RSpotify::User.new(spotify_user_content)
 
+        if retry_count != 0
+            @playlist.delete!
+        end
+
         client = OpenAI::Client.new(access_token: ENV['OPENAI_KEY'])
 
         response_playlist_title = client.completions(
@@ -104,10 +108,6 @@ class Playlist
         current_user.wallet.credits -= 1
         current_user.wallet.save
 
-    rescue => exception
-        @playlist.delete!
-        raise exception
-        
     end
 
 end
