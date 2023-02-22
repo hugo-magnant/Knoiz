@@ -10,6 +10,7 @@ gem "jbuilder"
 gem 'pg'
 gem "puma", "~> 5.0"
 gem "rails", "~> 7.0.4", ">= 7.0.4.1"
+gem "redis"
 gem 'rspotify'
 gem "ruby-openai"
 gem "sprockets-rails"
@@ -20,9 +21,6 @@ gem "tailwindcss-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "whenever", require: false
-
-# Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
