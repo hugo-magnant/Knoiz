@@ -104,11 +104,10 @@ class Playlist
         current_user.wallet.credits -= 1
         current_user.wallet.save
 
-    end
-
-
-    def on_failure(_exception, text_search, spotify_user_content, spotify_user_id)
-        RSpotify::User.new(spotify_user_content).playlist(@playlist_id).delete
+    rescue => exception
+        @playlist.delete!
+        raise exception
+        
     end
 
 end
