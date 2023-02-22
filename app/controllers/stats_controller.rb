@@ -20,7 +20,7 @@ class StatsController < ApplicationController
 
 
                 # Accordéon des genres écoutés
-
+=begin
                 temp_top_tracks = []
                 temp_top_artists_long_term = spotify_user.top_tracks(limit: 50, offset: 0, time_range: 'long_term')
                 temp_top_artists_long_term.each do |track|
@@ -43,7 +43,7 @@ class StatsController < ApplicationController
 
                 sorted_genres = top_genres_storage.sort_by { |genre, count| -count }
                 @genres_saved = sorted_genres.take(5)
-
+=end
 
                 # Echantillon 5 recently played
                 

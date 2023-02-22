@@ -1,7 +1,7 @@
 class Playlist
     include Sidekiq::Worker
   
-    def perform(text_song, text_artist, spotify_user_content, spotify_user_id)
+    def perform(text_search, spotify_user_content, spotify_user_id)
 
         require 'base64'
 
@@ -14,17 +14,31 @@ class Playlist
 
         client = OpenAI::Client.new(access_token: ENV['OPENAI_KEY'])
 
-        search_track = RSpotify::Track.search("#{text_song} - #{text_artist}").first
-        search_track_name = search_track.name
-        search_track_artist = search_track.artists.first.name
+        response_playlist_title = client.completions(
+            parameters: {
+                model: "text-davinci-003",
+                prompt: "Create a playlist title that matches this description : \"#{text_search}\"",
+                temperature: 0.7,
+                max_tokens: 1000,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0
+            })
 
-        var_temp = 0.7
+        playlist_title = response_playlist_title["choices"].map { |c| c["text"] }
+        
+        playlist_title = playlist_title.to_s
+        playlist_title = playlist_title.gsub!("\\n", "")
+        playlist_title = playlist_title.gsub!("\"", "")
+        playlist_title = playlist_title.gsub!("[", "")
+        playlist_title = playlist_title.gsub!("]", "")
+        playlist_title = playlist_title.gsub!("\\", "")
 
         response = client.completions(
             parameters: {
                 model: "text-davinci-003",
-                prompt: "Create in one column : a playlist of strictly 30 songs made by strictly 30 different artists in the same style and the same era of #{text_artist}'s \"#{text_song}\" music including #{text_artist}'s \"#{text_song}\" music in first position. Don't put the same music more than once. Items must be separated by |. Song and artist must be separate by -. Don't write the feats, only the main music artist.",
-                temperature: var_temp,
+                prompt: "Create in one column : a playlist of strictly 30 songs made by strictly 30 different artists in the same style and the same era of #{text_search}. Don't put the same music more than once. Items must be separated by |. Song and artist must be separate by -. Don't write the feats, only the main music artist.",
+                temperature: 0.7,
                 max_tokens: 1000,
                 top_p: 1,
                 frequency_penalty: 0,
@@ -50,12 +64,12 @@ class Playlist
 
         end
 
-        playlist = spotify_user.create_playlist!("Spotilab.ai | #{search_track_name} - #{search_track_artist}")
+        playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
         playlist.replace_image!(encoded_image_data, 'image/jpeg')
         playlist.add_tracks!(temp_playlist)
 
-        current_user.profile.credits -= 1
-        current_user.profile.save
+        current_user.wallet.credits -= 1
+        current_user.wallet.save
 
     end
 end

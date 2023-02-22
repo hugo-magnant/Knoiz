@@ -19,10 +19,9 @@ class HomeController < ApplicationController
 
                 puts spotify_user_content
 
-                text_song = params[:text_song].squish
-                text_artist = params[:text_artist].squish
+                text_search = params[:text_search].squish
 
-                Playlist.perform_async(text_song, text_artist, spotify_user_content, spotify_user_id)
+                Playlist.perform_async(text_search, spotify_user_content, spotify_user_id)
 
                 flash[:notice] = "Your playlist is being created !"
                 redirect_to root_path

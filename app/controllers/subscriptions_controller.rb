@@ -27,22 +27,20 @@ class SubscriptionsController < ApplicationController
     redirect_to pricing_path
   end
 
-  def update
+  def resume
+    subscription = Stripe::Subscription.retrieve(@current_user.subscription.stripe_subscription_id)
+    subscription.cancel_at_period_end = false
+    subscription.save
+    @current_user.subscription.update(canceled: false)
+    redirect_to root_path, notice: "Votre abonnement sera renouvelé."
   end
 
   def cancel
     subscription = Stripe::Subscription.retrieve(@current_user.subscription.stripe_subscription_id)
-    subscription.cancel
-
-
-
-      @subscription_info = {
-        ends_on: subscription.canceled_at.present? ? Time.at(subscription.canceled_at).strftime("%Y-%m-%d") : Time.at(subscription.current_period_end).strftime("%Y-%m-%d")
-      }
-
-    redirect_to root_path, notice: "Spotilab.ai premium annulé avec succès, vous concervez votre accès jusqu'au #{@subscription_info[:ends_on]}!"
-    rescue Stripe::StripeError => e
-      redirect_to info_path, alert: "erreur"
+    subscription.cancel_at_period_end = true
+    subscription.save
+    @current_user.subscription.update(canceled: true)
+    redirect_to root_path, notice: "Votre abonnement a été annulé."
   end
 
 end

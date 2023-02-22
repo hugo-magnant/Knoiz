@@ -5,10 +5,12 @@ class User < ApplicationRecord
   has_one :subscription
   has_one :profile
   has_one :wallet
+  has_one :spotifydata
   
   after_create :create_subscription
   after_create :create_profile
   after_create :create_wallet
+  after_create :create_spotifydata
 
   def create_subscription
     Subscription.create(user_id: id) if subscription.nil?
@@ -20,6 +22,10 @@ class User < ApplicationRecord
 
   def create_wallet
     self.create_wallet!
+  end
+
+  def create_spotifydata
+    self.create_spotifydata!
   end
   
   

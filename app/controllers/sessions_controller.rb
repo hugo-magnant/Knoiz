@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     session[:spotify_user_data] = nil
-    redirect_to login_path, notice: "Logged out!"
+    redirect_to root_path, notice: "Logged out!"
   end
   
 end

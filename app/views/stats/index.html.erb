@@ -14,19 +14,19 @@
     <h1 class="text-3xl font-medium text-spotify-blanc mb-6">Most listened genres</h1>
     <div class="flex flex-col w-full">
       <div class="bg-spotify-vert px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 90%;">
-        <p class="text-spotify-blanc"><%= @genres_saved[0][0] %></p>
+        <p class="text-spotify-blanc"><%= @current_user.spotifydata.favorite_genre[0][0] %></p>
       </div>
       <div class="bg-spotify-vert px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 75%;">
-        <p class="text-spotify-blanc"><%= @genres_saved[1][0] %></p>
+        <p class="text-spotify-blanc"><%= @current_user.spotifydata.favorite_genre[1][0] %></p>
       </div>
       <div class="bg-spotify-vert px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 70%;">
-        <p class="text-spotify-blanc"><%= @genres_saved[2][0] %></p>
+        <p class="text-spotify-blanc"><%= @current_user.spotifydata.favorite_genre[2][0] %></p>
       </div>
       <div class="bg-spotify-vert px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 60%;">
-        <p class="text-spotify-blanc"><%= @genres_saved[3][0] %></p>
+        <p class="text-spotify-blanc"><%= @current_user.spotifydata.favorite_genre[3][0] %></p>
       </div>
       <div class="bg-spotify-vert px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 45%;">
-        <p class="text-spotify-blanc"><%= @genres_saved[4][0] %></p>
+        <p class="text-spotify-blanc"><%= @current_user.spotifydata.favorite_genre[4][0] %></p>
       </div>
     </div>
   </div>

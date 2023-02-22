@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
     before_action :set_current_user
     before_action :check_stripe_subscription
     before_action :access_token_refreshing
+    before_action :stats
 
     def set_current_user
         if !session[:user_id].nil?
@@ -43,6 +44,22 @@ class ApplicationController < ActionController::Base
                   @current_user.profile.update(image: nil)
                 end
 
+            end
+        end
+    end
+
+    def stats
+        if !session[:user_id].nil? and !session[:spotify_user_data].nil?
+            if @current_user.spotifydata.timestamp <= 24.hours.ago
+                spotify_user_content = session[:spotify_user_data]
+                spotify_user_id = @current_user.id
+                @current_user.spotifydata.timestamp = Time.now
+                Stats.perform_async(spotify_user_content, spotify_user_id)
+            elsif @current_user.spotifydata.favorite_genre == nil
+                spotify_user_content = session[:spotify_user_data]
+                spotify_user_id = @current_user.id
+                @current_user.spotifydata.timestamp = Time.now
+                Stats.perform_async(spotify_user_content, spotify_user_id)
             end
         end
     end
