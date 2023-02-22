@@ -3,6 +3,8 @@ class Playlist
   
     def perform(text_search, spotify_user_content, spotify_user_id)
 
+        retry_count ||= 0
+
         require 'base64'
 
         current_user = User.find_by(id: spotify_user_id)
@@ -12,7 +14,7 @@ class Playlist
 
         spotify_user = RSpotify::User.new(spotify_user_content)
 
-        if retry_count != 0
+        if retry_count > 0
             @playlist.delete!
         end
 
@@ -107,6 +109,10 @@ class Playlist
 
         current_user.wallet.credits -= 1
         current_user.wallet.save
+
+    ensure
+        
+        retry_count += 1
 
     end
 
