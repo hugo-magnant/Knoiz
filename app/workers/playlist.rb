@@ -80,8 +80,8 @@ class Playlist
 
         end
 
-        playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
-        playlist.replace_image!(encoded_image_data, 'image/jpeg')
+        @playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
+        @playlist.replace_image!(encoded_image_data, 'image/jpeg')
         puts "_________________________________________________________"
         puts "_________________________________________________________"
         puts "_________________________________________________________"
@@ -98,10 +98,17 @@ class Playlist
         puts "_________________________________________________________"
         puts "_________________________________________________________"
 
-        playlist.add_tracks!(temp_playlist)
+        @playlist.add_tracks!(temp_playlist)
+        @playlist_id = @playlist.id
 
         current_user.wallet.credits -= 1
         current_user.wallet.save
 
     end
+
+
+    def on_failure(_exception, text_search, spotify_user_content, spotify_user_id)
+        RSpotify::User.new(spotify_user_content).playlist(@playlist_id).delete
+    end
+
 end
