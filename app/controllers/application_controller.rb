@@ -54,11 +54,13 @@ class ApplicationController < ActionController::Base
                 spotify_user_content = session[:spotify_user_data]
                 spotify_user_id = @current_user.id
                 @current_user.spotifydata.timestamp = Time.now
+                @current_user.spotifydata.save
                 Stats.perform_async(spotify_user_content, spotify_user_id)
             elsif @current_user.spotifydata.favorite_genre == nil
                 spotify_user_content = session[:spotify_user_data]
                 spotify_user_id = @current_user.id
                 @current_user.spotifydata.timestamp = Time.now
+                @current_user.spotifydata.save
                 Stats.perform_async(spotify_user_content, spotify_user_id)
             end
         end
