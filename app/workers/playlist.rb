@@ -89,15 +89,21 @@ class Playlist
 
         rescue Exception => e
 
+            playlist_idsupp = "03wzMpcySvPbaxL9KZhdje"
+            spotify_usersupp = RSpotify::User.new(spotify_user_content)
+            playlistsupp = RSpotify::Playlist.find(spotify_usersupp.id, playlist_idsupp)
+
             puts "Fail Fail Fail Fail Fail Fail Fail FailFail Fail FailFail"
             puts "Fail Fail Fail Fail Fail Fail Fail FailFail Fail FailFail"
             puts "_________________________________________________________"
             puts "_________________________________________________________"
-            puts @playlist_id
+            puts playlistsupp
             puts "_________________________________________________________"
             puts "_________________________________________________________"
 
-            @playlist.delete!
+
+            playlistsupp.delete!
+            playlistsupp.delete
 
         ensure
 
