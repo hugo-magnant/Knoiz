@@ -72,9 +72,11 @@ class Playlist
 
         end
 
-        
+        temp_playlist_json = temp_playlist.to_json
 
-        Create.perform_async(temp_playlist, spotify_user_content, spotify_user_id, playlist_title)
+
+
+        Create.perform_async(temp_playlist_json, spotify_user_content, spotify_user_id, playlist_title)
 
         #current_user.wallet.credits -= 1
         #current_user.wallet.save

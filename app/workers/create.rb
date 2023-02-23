@@ -1,7 +1,7 @@
 class Create
     include Sidekiq::Worker
   
-    def perform(temp_playlist, spotify_user_content, spotify_user_id, playlist_title)
+    def perform(temp_playlist_json, spotify_user_content, spotify_user_id, playlist_title)
 
         require 'base64'
 
@@ -14,7 +14,7 @@ class Create
 
         playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
         playlist.replace_image!(encoded_image_data, 'image/jpeg')
-        playlist.add_tracks!(temp_playlist)
+        playlist.add_tracks!(temp_playlist_json)
 
         puts "@@@@@@@@@@ @@@@@@ @@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@"
  
