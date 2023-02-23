@@ -97,13 +97,10 @@ class Playlist
             puts "Fail Fail Fail Fail Fail Fail Fail FailFail Fail FailFail"
             puts "_________________________________________________________"
             puts "_________________________________________________________"
-            puts playlistsupp
             puts "_________________________________________________________"
             puts "_________________________________________________________"
 
-
-            playlistsupp.delete!
-            playlistsupp.delete
+            playlistsupp.destroy
 
         ensure
 
