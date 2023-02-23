@@ -3,8 +3,8 @@ class Playlist
   
     def perform(text_search, spotify_user_content, spotify_user_id)
 
-
         client = OpenAI::Client.new(access_token: ENV['OPENAI_KEY'])
+
 
         response_playlist_title = client.completions(
             parameters: {
@@ -51,32 +51,18 @@ class Playlist
         reponse_ai = reponse_ai.gsub!("\"", "")
         reponse_ai = reponse_ai.gsub!("[", "")
         reponse_ai = reponse_ai.gsub!("]", "")
-        
-        @myArray = reponse_ai.split("|")
+    
 
-
+        myArray = reponse_ai.split("|")
         puts "_________________________________________________________"
         puts "_________________________________________________________"
-        puts @myArray
+        puts myArray
         puts "_________________________________________________________"
         puts "_________________________________________________________"
+        myArray_json = myArray.to_json
 
 
-
-        temp_playlist = []
-
-        for song in @myArray do
-
-            track = RSpotify::Track.search(song).first
-            temp_playlist.append(track)
-
-        end
-
-        temp_playlist_json = temp_playlist.to_json
-
-
-
-        Create.perform_async(temp_playlist_json, spotify_user_content, spotify_user_id, playlist_title)
+        Create.perform_async(myArray_json, spotify_user_content, spotify_user_id, playlist_title)
 
         #current_user.wallet.credits -= 1
         #current_user.wallet.save
