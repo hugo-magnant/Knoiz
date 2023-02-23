@@ -4,6 +4,9 @@ class Create
     def perform(temp_playlist_json, spotify_user_content, spotify_user_id, playlist_title)
 
         require 'base64'
+        require 'json'
+
+        temp_playlist = JSON.parse(temp_playlist_json)
 
         current_user = User.find_by(id: spotify_user_id)
 
@@ -14,7 +17,7 @@ class Create
 
         playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
         playlist.replace_image!(encoded_image_data, 'image/jpeg')
-        playlist.add_tracks!(temp_playlist_json)
+        playlist.add_tracks!(temp_playlist)
 
         puts "@@@@@@@@@@ @@@@@@ @@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@"
  
