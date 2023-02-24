@@ -22,15 +22,15 @@ class Create
         end
         
         if temp_playlist.present?
-        playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
-        playlist.replace_image!(encoded_image_data, 'image/jpeg')
-        playlist.add_tracks!(temp_playlist)
+            playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
+            playlist.add_tracks!(temp_playlist)
+            playlist.replace_image!(encoded_image_data, 'image/jpeg')
         else
-        puts "Error Error Error Error Error Error Error Error Error"
-        puts "Error Error Error Error Error Error Error Error Error"
-        puts "Error Error Error Error Error Error Error Error Error"
-        puts "Error Error Error Error Error Error Error Error Error"
-        puts "temp_playlist is empty, playlist not created"
+            puts "Error Error Error Error Error Error Error Error Error"
+            puts "Error Error Error Error Error Error Error Error Error"
+            puts "Error Error Error Error Error Error Error Error Error"
+            puts "Error Error Error Error Error Error Error Error Error"
+            puts "temp_playlist is empty, playlist not created"
         end
  
     end

@@ -13,7 +13,7 @@
           <p class="mt-4">
             <span class="text-4xl font-bold tracking-tight text-spotify-blanc">$0</span>
           </p>
-          <p class="mt-4 text-sm text-spotify-text-gris">Quis suspendisse ut fermentum neque vivamus non tellus.</p>
+          <p class="mt-4 text-sm text-spotify-text-gris">Discover the basic features of Spotilab for free, but with some restrictions. Create one personalized playlist per day and access a preview of your Spotify statistics to track your music activity.</p>
         </div>
         <table class="w-full">
           <thead>
@@ -24,7 +24,13 @@
           </thead>
           <tbody class="divide-y divide-gray-200">
             <tr class="border-t border-gray-200">
-              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Molestie lobortis massa.</th>
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Create playlists.</th>
+              <td class="py-5 pr-6 sm:pr-4">
+                <span class="block text-right text-sm text-spotify-text-gris">One per day</span>
+              </td>
+            </tr>
+            <tr class="border-t border-gray-200">
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Lastly played song.</th>
               <td class="py-5 pr-6 sm:pr-4">
                 <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -34,17 +40,7 @@
               </td>
             </tr>
             <tr class="border-t border-gray-200">
-              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Urna purus felis.</th>
-              <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/check -->
-                <svg class="ml-auto h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                </svg>
-                <span class="sr-only">Yes</span>
-              </td>
-            </tr>
-            <tr class="border-t border-gray-200">
-              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Tellus pulvinar sit dictum.</th>
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Most listened genres.</th>
               <td class="py-5 pr-6 sm:pr-4">
                 <!-- Heroicon name: mini/minus -->
                 <svg class="ml-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -54,13 +50,21 @@
               </td>
             </tr>
             <tr class="border-t border-gray-200">
-              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Convallis.</th>
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Your 50 top Listened.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/minus -->
-                <svg class="ml-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
-                </svg>
-                <span class="sr-only">No</span>
+                <span class="block text-right text-sm text-spotify-text-gris">Only five</span>
+              </td>
+            </tr>
+            <tr class="border-t border-gray-200">
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">50 Recently played tracks.</th>
+              <td class="py-5 pr-6 sm:pr-4">
+                <span class="block text-right text-sm text-spotify-text-gris">Only five</span>
+              </td>
+            </tr>
+            <tr class="border-t border-gray-200">
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Top 50 global charts tracks.</th>
+              <td class="py-5 pr-6 sm:pr-4">
+                <span class="block text-right text-sm text-spotify-text-gris">Only five</span>
               </td>
             </tr>
           </tbody>
@@ -75,7 +79,7 @@
             <span class="text-4xl font-bold tracking-tight text-spotify-blanc">$1.99</span>
             <span class="text-base font-medium text-spotify-text-gris">/wk</span>
           </p>
-          <p class="mt-4 text-sm text-spotify-text-gris">Orci volutpat ut sed sed neque, dui eget. Quis tristique non.</p>
+          <p class="mt-4 text-sm text-spotify-text-gris">Unlock all features with Spotilab Plus and get the ultimate music experience. Access exclusive characteristics to create personalized playlists and track detailed statistics of your Spotify account.</p>
           <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
             <%= form.submit "Get started today", class: "mt-4 cursor-pointer inline-block w-full rounded-lg bg-spotify-vert px-4 py-2.5 text-center text-sm font-semibold leading-5 text-white shadow-md hover:bg-spotify-vert-hover" %>
           <% end %>
@@ -89,7 +93,13 @@
           </thead>
           <tbody class="divide-y divide-gray-200">
             <tr class="border-t border-gray-200">
-              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Molestie lobortis massa.</th>
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Create playlists.</th>
+              <td class="py-5 pr-6 sm:pr-4">
+                <span class="block text-right text-sm text-spotify-text-gris">Unlimited</span>
+              </td>
+            </tr>
+            <tr class="border-t border-gray-200">
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Lastly played song.</th>
               <td class="py-5 pr-6 sm:pr-4">
                 <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -99,7 +109,7 @@
               </td>
             </tr>
             <tr class="border-t border-gray-200">
-              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Urna purus felis.</th>
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Most listened genres.</th>
               <td class="py-5 pr-6 sm:pr-4">
                 <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -109,7 +119,7 @@
               </td>
             </tr>
             <tr class="border-t border-gray-200">
-              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Tellus pulvinar sit dictum.</th>
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Your 50 top Listened.</th>
               <td class="py-5 pr-6 sm:pr-4">
                 <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -119,9 +129,23 @@
               </td>
             </tr>
             <tr class="border-t border-gray-200">
-              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Convallis.</th>
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">50 Recently played tracks.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <span class="block text-right text-sm text-spotify-text-gris">Up to 50 users</span>
+                <!-- Heroicon name: mini/check -->
+                <svg class="ml-auto h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+                <span class="sr-only">Yes</span>
+              </td>
+            </tr>
+            <tr class="border-t border-gray-200">
+              <th class="py-5 px-6 text-left text-sm font-normal text-spotify-text-gris sm:px-4" scope="row">Top 50 global charts tracks.</th>
+              <td class="py-5 pr-6 sm:pr-4">
+                <!-- Heroicon name: mini/check -->
+                <svg class="ml-auto h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+                <span class="sr-only">Yes</span>
               </td>
             </tr>
           </tbody>
@@ -153,7 +177,7 @@
                   <p>
                     <span class="text-4xl font-bold tracking-tight text-spotify-blanc">$0</span>
                   </p>
-                  <p class="mt-4 text-sm text-spotify-text-gris">Quis suspendisse ut fermentum neque vivamus non tellus.</p>
+                  <p class="mt-4 text-sm text-spotify-text-gris">Discover the basic features of Spotilab for free, but with some restrictions. Create one personalized playlist per day and access a preview of your Spotify statistics to track your music activity.</p>
                 </div>
               </div>
             </td>
@@ -164,7 +188,7 @@
                     <span class="text-4xl font-bold tracking-tight text-spotify-blanc">$1.99</span>
                     <span class="text-base font-medium text-spotify-text-gris">/wk</span>
                   </p>
-                  <p class="mt-4 text-sm text-spotify-text-gris">Orci volutpat ut sed sed neque, dui eget. Quis tristique non.</p>
+                  <p class="mt-4 text-sm text-spotify-text-gris">Unlock all features with Spotilab Plus and get the ultimate music experience. Access exclusive characteristics to create personalized playlists and track detailed statistics of your Spotify account.</p>
                 </div>
                 <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
                   <%= form.submit "Get started today", class: "mt-4 cursor-pointer inline-block w-full rounded-lg bg-spotify-vert px-4 py-2.5 text-center text-sm font-semibold leading-5 text-white shadow-md hover:bg-spotify-vert-hover" %>
@@ -173,7 +197,16 @@
             </td>
           </tr>
           <tr>
-            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Molestie lobortis massa.</th>
+            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Create playlists.</th>
+            <td class="py-5 px-6">
+              <span class="block text-sm text-spotify-text-gris">One per day</span>
+            </td>
+            <td class="py-5 px-6">
+              <span class="block text-sm text-spotify-text-gris">Unlimited</span>
+            </td>
+          </tr>
+          <tr>
+            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Lastly played song.</th>
             <td class="py-5 px-6">
               <!-- Heroicon name: mini/check -->
               <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -190,24 +223,7 @@
             </td>
           </tr>
           <tr>
-            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Urna purus felis.</th>
-            <td class="py-5 px-6">
-              <!-- Heroicon name: mini/check -->
-              <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-              </svg>
-              <span class="sr-only">Included in Free</span>
-            </td>
-            <td class="py-5 px-6">
-              <!-- Heroicon name: mini/check -->
-              <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-              </svg>
-              <span class="sr-only">Included in Plus</span>
-            </td>
-          </tr>
-          <tr>
-            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Tellus pulvinar sit dictum.</th>
+            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Most listened genres.</th>
             <td class="py-5 px-6">
               <!-- Heroicon name: mini/minus -->
               <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -224,16 +240,42 @@
             </td>
           </tr>
           <tr>
-            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Convallis.</th>
+            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Your 50 top Listened.</th>
             <td class="py-5 px-6">
-              <!-- Heroicon name: mini/minus -->
-              <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
-              </svg>
-              <span class="sr-only">Not included in Free</span>
+              <span class="block text-sm text-spotify-text-gris">Only five</span>
             </td>
             <td class="py-5 px-6">
-              <span class="block text-sm text-spotify-text-gris">Up to 50 users</span>
+              <!-- Heroicon name: mini/check -->
+              <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+              </svg>
+              <span class="sr-only">Included in Plus</span>
+            </td>
+          </tr>
+          <tr>
+            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">50 Recently played tracks.</th>
+            <td class="py-5 px-6">
+              <span class="block text-sm text-spotify-text-gris">Only five</span>
+            </td>
+            <td class="py-5 px-6">
+              <!-- Heroicon name: mini/check -->
+              <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+              </svg>
+              <span class="sr-only">Included in Plus</span>
+            </td>
+          </tr>
+          <tr>
+            <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-spotify-text-gris" scope="row">Top 50 global charts tracks.</th>
+            <td class="py-5 px-6">
+              <span class="block text-sm text-spotify-text-gris">Only five</span>
+            </td>
+            <td class="py-5 px-6">
+              <!-- Heroicon name: mini/check -->
+              <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+              </svg>
+              <span class="sr-only">Included in Plus</span>
             </td>
           </tr>
         </tbody>
