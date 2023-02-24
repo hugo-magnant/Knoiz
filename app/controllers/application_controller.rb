@@ -5,9 +5,7 @@ class ApplicationController < ActionController::Base
     before_action :set_current_user
     before_action :check_stripe_subscription
     before_action :access_token_refreshing
-    before_action :stats
-
-    add_flash_types :info
+    before_action :stats    
 
     def set_current_user
         if !session[:user_id].nil?

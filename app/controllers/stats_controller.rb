@@ -60,7 +60,7 @@ class StatsController < ApplicationController
 
 
                 # Echantillon tops 5 albums
-
+=begin
                 @top_albums_short_term = []
                 @top_tracks_short_term.each do |track|
                     @top_albums_short_term.append(track.album)
@@ -73,7 +73,7 @@ class StatsController < ApplicationController
                 @top_tracks_long_term.each do |track|
                     @top_albums_long_term.append(track.album)
                 end
-
+=end
 
                 # Echantillon tops 5 artistes
 

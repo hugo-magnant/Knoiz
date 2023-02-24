@@ -26,7 +26,7 @@
         </div>
       </div>
     <% end %>
-    <% unless info.nil? %>
+    <% unless flash[:info].nil? %>
       <div x-data="{ showInfo: true }" x-show="showInfo" class="absolute w-9/12 rounded-md bg-yellow-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
@@ -35,7 +35,7 @@
             </svg>
           </div>
           <div class="ml-3">
-            <p class="text-sm font-medium text-yellow-800"><%= info %></p>
+            <p class="text-sm font-medium text-yellow-800"><%= flash[:info] %></p>
           </div>
           <div class="ml-auto pl-3">
             <div class="-mx-1.5 -my-1.5">

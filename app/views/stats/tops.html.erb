@@ -1,4 +1,4 @@
-<div  data-controller="tops" class="flex flex-col bg-spotify-noir w-full py-8 px-8 sm:px-6 lg:px-8 rounded-3xl">
+<div data-controller="tops" class="flex flex-col bg-spotify-noir w-full py-8 px-8 sm:px-6 lg:px-8 rounded-3xl">
   <!-- Header Part -->
   <div class="flex flex-row justify-between mb-6">
     <h1 class="text-3xl font-medium text-spotify-blanc">Your top Listened</h1>
@@ -31,7 +31,6 @@
             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
             <a data-action="click->tops#tracks" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Tracks</a>
             <a data-action="click->tops#artists" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Artists</a>
-            <a data-action="click->tops#albums" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Albums</a>
           </div>
         </div>
       </div>
@@ -163,57 +162,6 @@
                 <img src="<%= artist.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
               </div>
               <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= artist.name %></h3>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <!-- Albums Part -->
-    <div id="albums" class="hidden">
-      <!-- Albums Short Part -->
-      <div id="short_term_albums" class="">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_albums_short_term.each do |album| %>
-            <a href="#" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
-                <img src="<%= album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= album.name %></h3>
-              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= album.artists.first.name %></p>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-        </div>
-      </div>
-      <!-- Albums Medium Part -->
-      <div id="medium_term_albums" class="hidden">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_albums_medium_term.each do |album| %>
-            <a href="#" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
-                <img src="<%= album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= album.name %></h3>
-              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= album.artists.first.name %></p>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-        </div>
-      </div>
-      <!-- Albums Long Part -->
-      <div id="long_term_albums" class="hidden">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_albums_long_term.each do |album| %>
-            <a href="#" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-200 xl:aspect-w-1 xl:aspect-h-1">
-                <img src="<%= album.images.first['url'] %>" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <h3 class="mt-4 text-sm text-spotify-blanc"><%= i %># - <%= album.name %></h3>
-              <p class="mt-1 text-sm font-medium text-spotify-text-gris"><%= album.artists.first.name %></p>
             </a>
             <% i = i + 1 %>
           <% end %>
