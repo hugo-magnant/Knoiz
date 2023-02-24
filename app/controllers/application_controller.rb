@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
     before_action :access_token_refreshing
     before_action :stats
 
+    add_flash_types :info
+
     def set_current_user
         if !session[:user_id].nil?
             @current_user = User.find_by(id: session[:user_id])

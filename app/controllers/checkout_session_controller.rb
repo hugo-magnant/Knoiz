@@ -39,9 +39,9 @@ class CheckoutSessionController < ApplicationController
   def subscription_check
     if !session[:user_id].nil?
       if @current_user.subscription.active == true and @current_user.subscription.canceled == true
-        redirect_to info_path, alert: "You are already subscribed. To resume your subscription, please click on the 'Resume my subscription' button."
+        redirect_to info_path, info: "You are already subscribed. To resume your subscription, please click on the 'Resume my subscription' button."
       elsif @current_user.subscription.active == true
-          redirect_to pricing_path, alert: "You are already subscribed."
+          redirect_to pricing_path, info: "You are already subscribed."
       end
     else
       redirect_to pricing_path, alert: "You must be logged in."
