@@ -40,18 +40,4 @@ class User < ApplicationRecord
     user
   end
 
-  def reset_credits_unsubscribe
-    # Sélectionne les utilisateurs qui n'ont pas d'abonnement actif
-    unsubscribe_users = User.joins(:subscription).where(subscriptions: { active: false })
-    # Réinitialise la valeur de crédits pour les utilisateurs sélectionnés
-    unsubscribe_users.each { |user| user.wallet.update(credits: 1) }
-  end
-
-  def reset_credits_subscribe
-    # Sélectionne les utilisateurs qui n'ont pas d'abonnement actif
-    subscribe_users = User.joins(:subscription).where(subscriptions: { active: true })
-    # Réinitialise la valeur de crédits pour les utilisateurs sélectionnés
-    subscribe_users.each { |user| user.wallet.update(credits: 100) }
-  end
-
 end

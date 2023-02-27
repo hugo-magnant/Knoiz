@@ -23,8 +23,6 @@ class ApplicationController < ActionController::Base
                 @current_user.subscription.stripe_user_id = ""
                 @current_user.subscription.stripe_subscription_id = ""
                 @current_user.subscription.save
-                @current_user.wallet.credits = 1
-                @current_user.wallet.save
             end
         end
     end

@@ -4,14 +4,13 @@ class HomeController < ApplicationController
     before_action :access_token_refreshing, only: [:create_playlist]
 
     def index
-
+        
     end
 
     def create_playlist
 
         if !session[:user_id].nil?
-            if @current_user.wallet.credits > 0
-
+            if @current_user.subscription.active == false and @current_user.wallet.timestamp < 24.hours.ago
                 require_relative '../workers/playlist.rb'
 
                 spotify_user_content = session[:spotify_user_data]
@@ -23,11 +22,24 @@ class HomeController < ApplicationController
 
                 Playlist.perform_async(text_search, spotify_user_content, spotify_user_id)
 
-                flash[:notice] = "Your playlist is being created !"
+                flash[:notice] = "Your playlist is being created."
                 redirect_to root_path
+            elsif @current_user.subscription.active == true and @current_user.wallet.timestamp < 1.minute.ago
+                require_relative '../workers/playlist.rb'
 
+                spotify_user_content = session[:spotify_user_data]
+                spotify_user_id = @current_user.id
+
+                puts spotify_user_content
+
+                text_search = params[:text_search].squish
+
+                Playlist.perform_async(text_search, spotify_user_content, spotify_user_id)
+
+                flash[:notice] = "Your playlist is being created."
+                redirect_to root_path
             else
-                flash[:alert] = "You don't have enough credits to perform this action"
+                flash[:alert] = "You can't create a playlist now."
                 redirect_to root_path
             end
         end

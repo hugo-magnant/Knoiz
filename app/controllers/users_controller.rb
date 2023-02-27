@@ -31,8 +31,6 @@ class UsersController < ApplicationController
         stripe_subscription_id: stripe_session.subscription,
         active: true
       )
-      @current_user.wallet.credits = 10000
-      @current_user.wallet.save
       redirect_to root_path, notice: "Subscription to Djai.app premium successful !"
     end
   end

@@ -21,7 +21,7 @@
       x-transition:leave-start="translate-x-0"
       x-transition:leave-end="-translate-x-full"
       class="fixed inset-0 z-40 flex">
-      <div class="relative flex w-full max-w-xs flex-1 flex-col bg-gray-800">
+      <div class="relative flex w-full max-w-xs flex-1 flex-col bg-spotify-noir">
         <!--
             Close button, show/hide based on off-canvas menu state.
             
@@ -47,7 +47,7 @@
           </div>
           <nav class="mt-5 px-2">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="<% root_path %>" class="bg-gray-900 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+            <a href="<%= root_path %>" class="<% if params[:controller] == "home" %>bg-spotify-noir-2<% end %> text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-spotify-noir-2">
               <!--
                      Heroicon name: outline/home
                      
@@ -58,7 +58,7 @@
               </svg>
               Home
             </a>
-            <a href="<% stats_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+            <a href="<%= stats_path %>" class="<% if display_stats? %>bg-spotify-noir-2<% end %> <% if params[:controller] != "stats" %>mb-2<% end %> text-gray-300 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-spotify-noir-2">
               <!-- Heroicon name: outline/users -->
               <svg class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
@@ -66,17 +66,17 @@
               Stats
             </a>
             <% if params[:controller] == "stats" %>
-              <a href="<%= tops_path %>" class="ml-6 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+              <a href="<%= tops_path %>" class="<% if display_tops? %>bg-spotify-noir-2<% end %> ml-6 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-noir-2">
                 Your top Listened
               </a>
-              <a href="<%= recently_path %>" class="ml-6 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+              <a href="<%= recently_path %>" class="<% if display_recently? %>bg-spotify-noir-2<% end %> ml-6 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-noir-2">
                 Recently played
               </a>
-              <a href="<%= top_global_path %>" class="ml-6 mb-8 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+              <a href="<%= top_global_path %>" class="<% if display_top_global? %>bg-spotify-noir-2<% end %> ml-6 mb-2 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-noir-2">
                 Top 50 global tracks
               </a>
             <% end %>
-            <a href="<% pricing_path %>" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+            <a href="<%= pricing_path %>" class="<% if params[:controller] == "pricing" %>bg-spotify-noir-2<% end %> text-gray-300 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-spotify-noir-2">
               <!-- Heroicon name: outline/users -->
               <svg class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
@@ -85,19 +85,32 @@
             </a>
           </nav>
         </div>
-        <div class="flex flex-shrink-0 bg-gray-700 p-4">
-          <a href="#" class="group block flex-shrink-0">
-            <div class="flex items-center">
-              <div>
-                <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+        <% if !session[:user_id] %>
+          <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "m-2 text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
+        <% else %>
+          <div class="flex flex-shrink-0 bg-spotify-noir-2 p-4">
+            <a href="<%= info_path %>" class="group block flex-shrink-0">
+              <div class="flex items-center">
+                <div>
+                  <% if @current_user.profile.image.nil? %>
+                    <%= image_tag "profile.jpg" , class: "inline-block h-10 w-10 rounded-full" %>
+                  <% else %>
+                    <%= image_tag @current_user.profile.image , class: "inline-block h-10 w-10 rounded-full" %>
+                  <% end %>
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm font-medium text-white"><%= @current_user.username %></p>
+                  <% if @current_user.subscription.active == false %>
+                    <p class="text-sm font-medium text-white">Spotilab Free</p>
+                  <% else %>
+                    <p class="text-sm font-medium text-white">Spotilab Plus</p>
+                  <% end %>
+                  <p class="text-sm font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
+                </div>
               </div>
-              <div class="ml-3">
-                <p class="text-base font-medium text-white">Tom Cook</p>
-                <p class="text-sm font-medium text-gray-400 group-hover:text-gray-300">View profile</p>
-              </div>
-            </div>
-          </a>
-        </div>
+            </a>
+          </div>
+        <% end %>
       </div>
       <div class="w-14 flex-shrink-0">
         <!-- Force sidebar to shrink to fit close icon -->
@@ -167,10 +180,12 @@
               <% end %>
             </div>
             <div class="ml-3">
-              <% if @current_user.subscription.active == false %>
-                <p class="text-sm font-medium <% if @current_user.wallet.credits < 1 %>text-spotify-orange<% else %>text-white<% end %>"><%= @current_user.wallet.credits %> credits</p>
-              <% end %>
               <p class="text-sm font-medium text-white"><%= @current_user.username %></p>
+              <% if @current_user.subscription.active == false %>
+                <p class="text-sm font-medium text-white">Spotilab Free</p>
+              <% else %>
+                <p class="text-sm font-medium text-white">Spotilab Plus</p>
+              <% end %>
               <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
             </div>
           </div>

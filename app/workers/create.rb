@@ -25,12 +25,9 @@ class Create
             playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
             playlist.add_tracks!(temp_playlist)
             playlist.replace_image!(encoded_image_data, 'image/jpeg')
-        else
-            puts "Error Error Error Error Error Error Error Error Error"
-            puts "Error Error Error Error Error Error Error Error Error"
-            puts "Error Error Error Error Error Error Error Error Error"
-            puts "Error Error Error Error Error Error Error Error Error"
-            puts "temp_playlist is empty, playlist not created"
+
+            current_user.wallet.timestamp = Time.now
+            current_user.wallet.save
         end
  
     end
