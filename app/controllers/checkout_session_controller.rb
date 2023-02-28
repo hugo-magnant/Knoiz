@@ -9,7 +9,7 @@ class CheckoutSessionController < ApplicationController
         mode: 'subscription',
         line_items: [{
           quantity: 1,
-          price: 'price_1MT4RXDY9Oz58rvRI8tp1tGB'
+          price: 'price_1MgTYIDY9Oz58rvRdv9T4AP8'
         }],
         success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: "#{request.base_url}/users/info",
