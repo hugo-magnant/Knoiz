@@ -1,6 +1,8 @@
 class Create
     include Sidekiq::Worker
   
+    sidekiq_options retry: false
+
     def perform(myArray_json, spotify_user_content, spotify_user_id, playlist_title)
 
         require 'base64'
@@ -25,9 +27,6 @@ class Create
             playlist = spotify_user.create_playlist!("Spotilab.ai | #{playlist_title}")
             playlist.add_tracks!(temp_playlist)
             playlist.replace_image!(encoded_image_data, 'image/jpeg')
-
-            current_user.wallet.timestamp = Time.now
-            current_user.wallet.save
         end
  
     end

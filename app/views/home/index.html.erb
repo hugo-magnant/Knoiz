@@ -1,9 +1,19 @@
 <div class="flex justify-center py-12 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <div class="bg-spotify-noir py-8 px-4 shadow rounded-xl px-10">
-      <%= form_tag url_for(:controller => 'home', :action => 'create_playlist'), method: :post, class: 'space-y-6' do %>
-        <h2 class="text-center text-3xl font-bold tracking-tight text-spotify-blanc">Generate a playlist based on keywords</h2>
-        <%= text_field_tag :text_search, "", :required => true, class: "px-4 py-3 block w-full text-spotify-blanc rounded-md border-none bg-spotify-gris placeholder-gray-400 focus:border-spotify-vert focus:outline-none focus:ring-spotify-vert sm:text-sm", placeholder: "90s playlist ..." %>          <%= submit_tag "Submit", class: "cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
+      <%= form_tag url_for(:controller => 'home', :action => 'create_playlist'), method: :post do %>
+        <h2 class="mb-4 text-center text-3xl font-bold tracking-tight text-spotify-blanc">Generate a playlist based on keywords</h2>
+        <% if @current_user %>
+          <div data-controller="timer" data-timestamp="<%= @current_user.wallet.timestamp.to_i %>" data-subscription="<%= @current_user.subscription.active %>">
+            <%= text_field_tag :text_search, "", :required => true, class: "px-4 py-3 block w-full text-spotify-blanc rounded-md border-none bg-spotify-gris placeholder-gray-400 focus:border-spotify-vert focus:outline-none focus:ring-spotify-vert sm:text-sm", placeholder: "90s playlist ..." %>
+            <div class="w-full p-2 flex justify-end">
+              <span data-target="timer.countdown" class="text-spotify-blanc"></span>
+            </div>
+          </div>
+        <% else %>
+          <%= text_field_tag :text_search, "", :required => true, class: "px-4 py-3 block w-full text-spotify-blanc rounded-md border-none bg-spotify-gris placeholder-gray-400 focus:border-spotify-vert focus:outline-none focus:ring-spotify-vert sm:text-sm", placeholder: "90s playlist ..." %>
+        <% end %>
+        <%= submit_tag "Submit", id: "submitBtn", class: "cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
       <% end %>
     </div>
   </div>

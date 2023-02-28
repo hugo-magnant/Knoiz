@@ -22,6 +22,9 @@ class HomeController < ApplicationController
 
                 Playlist.perform_async(text_search, spotify_user_content, spotify_user_id)
 
+                @current_user.wallet.timestamp = Time.now
+                @current_user.wallet.save
+
                 flash[:notice] = "Your playlist is being created."
                 redirect_to root_path
             elsif @current_user.subscription.active == true and @current_user.wallet.timestamp < 1.minute.ago
@@ -35,6 +38,9 @@ class HomeController < ApplicationController
                 text_search = params[:text_search].squish
 
                 Playlist.perform_async(text_search, spotify_user_content, spotify_user_id)
+
+                @current_user.wallet.timestamp = Time.now
+                @current_user.wallet.save
 
                 flash[:notice] = "Your playlist is being created."
                 redirect_to root_path

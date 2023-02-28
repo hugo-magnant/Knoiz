@@ -1,6 +1,8 @@
 class Playlist
     include Sidekiq::Worker
   
+    sidekiq_options retry: false
+
     def perform(text_search, spotify_user_content, spotify_user_id)
 
         client = OpenAI::Client.new(access_token: ENV['OPENAI_KEY'])
