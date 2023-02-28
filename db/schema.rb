@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_28_084801) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_155943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_084801) do
   end
 
   create_table "spotifydata", force: :cascade do |t|
-    t.jsonb "favorite_genre"
+    t.jsonb "favorite_genre", default: [["Genre 1", 5], ["Genre 2", 4], ["Genre 3", 3], ["Genre 4", 2], ["Genre 5", 1]]
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
