@@ -11,3 +11,11 @@
 }
 
 */
+
+::-moz-selection {
+  background-color: #5A189A;
+}
+
+::selection {
+  background-color: #5A189A;
+}

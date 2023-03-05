@@ -21,17 +21,7 @@
       x-transition:leave-start="translate-x-0"
       x-transition:leave-end="-translate-x-full"
       class="fixed inset-0 z-40 flex">
-      <div class="relative flex w-full max-w-xs flex-1 flex-col bg-spotify-noir">
-        <!--
-            Close button, show/hide based on off-canvas menu state.
-            
-            Entering: "ease-in-out duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-            Leaving: "ease-in-out duration-300"
-            From: "opacity-100"
-            To: "opacity-0"
-            -->
+      <div class="relative flex w-full max-w-xs flex-1 flex-col bg-knoiz-noir">
         <div class="absolute top-0 right-0 -mr-12 pt-2">
           <button type="button" @click="isOpen = !isOpen" class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <span class="sr-only">Close sidebar</span>
@@ -42,12 +32,12 @@
           </button>
         </div>
         <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
-          <div class="flex flex-shrink-0 items-center px-4">
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+          <div class="flex flex-shrink-0 items-center justify-center p-6">
+            <%= image_tag "knoiz-logo.png", alt: "Knoiz logo", class: "h-8 w-auto" %>
           </div>
           <nav class="mt-5 px-2">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="<%= root_path %>" class="<% if params[:controller] == "home" %>bg-spotify-noir-2<% end %> text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-spotify-noir-2">
+            <a href="<%= root_path %>" class="<% if params[:controller] == "home" %>bg-knoiz-gris<% end %> text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-knoiz-gris">
               <!--
                      Heroicon name: outline/home
                      
@@ -58,37 +48,37 @@
               </svg>
               Home
             </a>
-            <a href="<%= stats_path %>" class="<% if display_stats? %>bg-spotify-noir-2<% end %> <% if params[:controller] != "stats" %>mb-2<% end %> text-gray-300 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-spotify-noir-2">
+            <a href="<%= stats_path %>" class="<% if display_stats? %>bg-knoiz-gris<% end %> <% if params[:controller] != "stats" %>mb-2<% end %> text-gray-300 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-knoiz-gris">
               <!-- Heroicon name: outline/users -->
               <svg class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
               </svg>
               Stats
             </a>
             <% if params[:controller] == "stats" %>
-              <a href="<%= tops_path %>" class="<% if display_tops? %>bg-spotify-noir-2<% end %> ml-6 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-noir-2">
+              <a href="<%= tops_path %>" class="<% if display_tops? %>bg-knoiz-gris<% end %> ml-6 text-knoiz-blanc-gris hover:bg-knoiz-gris hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-gris">
                 Your top Listened
               </a>
-              <a href="<%= recently_path %>" class="<% if display_recently? %>bg-spotify-noir-2<% end %> ml-6 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-noir-2">
+              <a href="<%= recently_path %>" class="<% if display_recently? %>bg-knoiz-gris<% end %> ml-6 text-knoiz-blanc-gris hover:bg-knoiz-gris hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-gris">
                 Recently played
               </a>
-              <a href="<%= top_global_path %>" class="<% if display_top_global? %>bg-spotify-noir-2<% end %> ml-6 mb-2 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-noir-2">
+              <a href="<%= top_global_path %>" class="<% if display_top_global? %>bg-knoiz-gris<% end %> ml-6 mb-2 text-knoiz-blanc-gris hover:bg-knoiz-gris hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-spotilab-gris">
                 Top 50 global tracks
               </a>
             <% end %>
-            <a href="<%= pricing_path %>" class="<% if params[:controller] == "pricing" %>bg-spotify-noir-2<% end %> text-gray-300 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-spotify-noir-2">
+            <a href="<%= pricing_path %>" class="<% if params[:controller] == "pricing" %>bg-knoiz-gris<% end %> text-gray-300 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md hover:bg-knoiz-gris">
               <!-- Heroicon name: outline/users -->
               <svg class="text-gray-400 group-hover:text-gray-300 mr-4 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
               </svg>
               Pricing
             </a>
           </nav>
         </div>
         <% if !session[:user_id] %>
-          <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "m-2 text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
+          <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "m-2 text-center items-center rounded-md border border-transparent bg-knoiz-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-knoiz-vert-hover focus:outline-none" %>
         <% else %>
-          <div class="flex flex-shrink-0 bg-spotify-noir-2 p-4">
+          <div class="flex flex-shrink-0 bg-knoiz-gris p-4">
             <a href="<%= info_path %>" class="group block flex-shrink-0">
               <div class="flex items-center">
                 <div>
@@ -119,78 +109,68 @@
   </div>
 </div>
 <!-- Static sidebar for desktop -->
-<div class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
+<div class="hidden fixed inset-y-0 md:flex pt-10 pl-10 pb-10 w-72 md:flex-col">
   <!-- Sidebar component, swap this element with another sidebar if you like -->
-  <div class="flex min-h-0 flex-1 flex-col bg-spotify-noir">
-    <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
-      <div class="flex flex-shrink-0 items-center px-4">
-        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+  <div class="flex min-h-0 flex-1 flex-col bg-knoiz-noir">
+    <div class="flex flex-1 flex-col overflow-y-auto">
+      <div class="flex flex-shrink-0 items-center justify-center mt-6 mb-6">
+        <%= image_tag "knoiz-logo.png", alt: "Knoiz logo", class: "h-8 w-auto" %>
       </div>
       <nav class="mt-5 flex-1 px-2">
-        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <a href="<%= root_path %>" class="mb-2 text-gray-300 <% if params[:controller] == "home" %>bg-spotify-noir-2<% end %> hover:bg-spotify-noir-2 hover:text-white text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-          <!--
-                  Heroicon name: outline/home
-                  
-                  Current: "text-gray-300", Default: "text-gray-400 group-hover:text-gray-300"
-                  -->
-          <svg class="text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <a href="<%= root_path %>" class="mb-2 text-gray-300 <% if params[:controller] == "home" %>bg-knoiz-gris<% end %> hover:bg-knoiz-gris hover:text-white text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
+          <svg class="text-knoiz-blanc mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
           </svg>
           Home
         </a>
-        <a href="<%= stats_path %>" class="<% if display_stats? %>bg-spotify-noir-2<% end %> <% if params[:controller] != "stats" %>mb-2<% end %> text-gray-300 hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-          <!-- Heroicon name: outline/users -->
-          <svg class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+        <a href="<%= stats_path %>" class="<% if display_stats? %>bg-knoiz-gris<% end %> mb-2 text-gray-300 hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
+          <svg class="text-knoiz-blanc group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
           </svg>
           Stats
         </a>
         <% if params[:controller] == "stats" %>
-          <a href="<%= tops_path %>" class="ml-6 <% if display_tops? %>bg-spotify-noir-2<% end %> text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+          <a href="<%= tops_path %>" class="ml-6 <% if display_tops? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
             Your top Listened
           </a>
-          <a href="<%= recently_path %>" class="ml-6 <% if display_recently? %>bg-spotify-noir-2<% end %> text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+          <a href="<%= recently_path %>" class="ml-6 <% if display_recently? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
             Recently played
           </a>
-          <a href="<%= top_global_path %>" class="ml-6 <% if display_top_global? %>bg-spotify-noir-2<% end %> mb-2 text-spotify-blanc-gris hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+          <a href="<%= top_global_path %>" class="ml-6 <% if display_top_global? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
             Top 50 global tracks
           </a>
         <% end %>
-        <a href="<%= pricing_path %>" class="text-gray-300 <% if params[:controller] == "pricing" %>bg-spotify-noir-2<% end %> hover:bg-spotify-noir-2 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-          <!-- Heroicon name: outline/users -->
+        <a href="<%= pricing_path %>" class="text-gray-300 <% if params[:controller] == "pricing" %>bg-knoiz-gris<% end %> hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
           <svg class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
           </svg>
           Pricing
         </a>
       </nav>
     </div>
     <% if !session[:user_id] %>
-      <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "m-2 text-center items-center rounded-md border border-transparent bg-spotify-vert px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-spotify-vert-hover focus:outline-none" %>
+      <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "mb-6 mx-2 text-center items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
     <% else %>
-      <div class="flex flex-shrink-0 bg-spotify-noir-2 p-4">
-        <a href="<%= info_path %>" class="group block w-full flex-shrink-0">
-          <div class="flex items-center">
-            <div>
-              <% if @current_user.profile.image.nil? %>
-                <%= image_tag "profile.jpg" , class: "inline-block h-9 w-9 rounded-full" %>
-              <% else %>
-                <%= image_tag @current_user.profile.image , class: "inline-block h-9 w-9 rounded-full" %>
-              <% end %>
-            </div>
-            <div class="ml-3">
-              <p class="text-sm font-medium text-white"><%= @current_user.username %></p>
-              <% if @current_user.subscription.active == false %>
-                <p class="text-sm font-medium text-white">Spotilab Free</p>
-              <% else %>
-                <p class="text-sm font-medium text-white">Spotilab Plus</p>
-              <% end %>
-              <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
-            </div>
+      <%= link_to info_path, class: "rounded-3xl mb-6 bg-knoiz-gris py-3.5 px-3.5 text-sm font-semibold text-white hover:bg-white/20" do %>
+        <div class="flex items-center">
+          <div>
+            <% if @current_user.profile.image.nil? %>
+              <%= image_tag "profile.jpg" , class: "inline-block h-9 w-9 rounded-full" %>
+            <% else %>
+              <%= image_tag @current_user.profile.image , class: "inline-block h-9 w-9 rounded-full" %>
+            <% end %>
           </div>
-        </a>
-      </div>
+          <div class="ml-3">
+            <p class="text-sm font-medium text-white"><%= @current_user.username %></p>
+            <% if @current_user.subscription.active == false %>
+              <p class="text-sm font-medium text-white">Spotilab Free</p>
+            <% else %>
+              <p class="text-sm font-medium text-white">Spotilab Plus</p>
+            <% end %>
+            <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

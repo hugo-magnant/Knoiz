@@ -10,45 +10,49 @@ class StatsController < ApplicationController
 
             spotify_user_content = session[:spotify_user_data]
             spotify_user = RSpotify::User.new(spotify_user_content)
-
+            oauth_token = spotify_user.to_hash
 
             # First stats
             
                 # Currently paused on spotify
 
-                @last_played = spotify_user.recently_played(limit: 1)
+                require 'net/http'
+                require 'uri'
+                require 'json'
 
+                uri = URI.parse("https://api.spotify.com/v1/me/player/currently-playing")
+                request = Net::HTTP::Get.new(uri)
+                request.content_type = "application/json"
+                request["Accept"] = "application/json"
+                request["Authorization"] = "Bearer #{oauth_token['credentials']['token']}"
 
-                # Accordéon des genres écoutés
-=begin
-                temp_top_tracks = []
-                temp_top_artists_long_term = spotify_user.top_tracks(limit: 50, offset: 0, time_range: 'long_term')
-                temp_top_artists_long_term.each do |track|
-                    temp_top_tracks.append(track)
-                end
-                temp_genres= []
-                temp_top_tracks.each do |track|
-                    temp_genres.append(track.artists.first.genres.first)
-                    temp_genres.append(track.artists.first.genres.second)
-                    temp_genres.append(track.artists.first.genres.third)
-                end
-                top_genres_storage = []
-                temp_genres.compact!
-                while temp_genres.size > 0
-                    temp_count = temp_genres.count(temp_genres[0])
-                    temp_array_genres_final = [temp_genres[0], temp_count]
-                    top_genres_storage.append(temp_array_genres_final)
-                    temp_genres.delete(temp_genres[0])
+                req_options = {
+                    use_ssl: uri.scheme == "https",
+                }
+
+                response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+                    http.request(request)
                 end
 
-                sorted_genres = top_genres_storage.sort_by { |genre, count| -count }
-                @genres_saved = sorted_genres.take(5)
-=end
+                if response.code == '200'
+
+                    response_json = JSON.parse(response.body)
+                    @is_playing_statut = response_json["is_playing"]
+                    @is_playing_album_image = response_json['item']['album']['images'][0]['url']
+                    @is_playing_name = response_json["item"]["name"]
+                    @is_playing_artist = response_json['item']['artists'][0]['name']
+                    @is_playing_album = response_json['item']['album']['name']
+                    @is_playing_track_link = response_json['item']['external_urls']['spotify']
+                    
+                elsif response.code == '204'
+
+                    @last_played = spotify_user.recently_played(limit: 1)
+
+                end
 
                 # Echantillon 5 recently played
                 
                 @recently_played = spotify_user.recently_played(limit: 5)
-
 
             # Top user
 
@@ -57,23 +61,6 @@ class StatsController < ApplicationController
                 @top_tracks_short_term = spotify_user.top_tracks(limit: 5, offset: 0, time_range: 'short_term')
                 @top_tracks_medium_term = spotify_user.top_tracks(limit: 5, offset: 0, time_range: 'medium_term')
                 @top_tracks_long_term = spotify_user.top_tracks(limit: 5, offset: 0, time_range: 'long_term')
-
-
-                # Echantillon tops 5 albums
-=begin
-                @top_albums_short_term = []
-                @top_tracks_short_term.each do |track|
-                    @top_albums_short_term.append(track.album)
-                end
-                @top_albums_medium_term = []
-                @top_tracks_medium_term.each do |track|
-                    @top_albums_medium_term.append(track.album)
-                end
-                @top_albums_long_term = []
-                @top_tracks_long_term.each do |track|
-                    @top_albums_long_term.append(track.album)
-                end
-=end
 
                 # Echantillon tops 5 artistes
 

@@ -13,20 +13,23 @@ module.exports = {
         sans: ['-apple-system', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'spotify': {
-          'vert': '#0EAD69',
-          'vert-hover': '#11D07D',
+        'knoiz': {
+          'noir': '#0A0A0A',
           'gris': '#141414',
-          'noir-2': '#0A0A0A',
-          'noir': '#000000',
-          'blanc': '#ECFDF6',
-          'blanc-gris': '#CCCCCC',
-          'orange': '#F9A62B',
-          'orange-hover': '#F9B44D',
-          'rouge': '#FF0035',
-          'rouge-hover': '#FF1F4B',
-          'text-gris': '#B8C2BE',
+          'violet-principale': '#5A189A',
+          'violet-principale-hover': '#661CB0',
+          'violet-secondaire': '#9D4EDD',
+          'blanc': '#f4effa',
+          'orange': '#FFBF00',
+          'orange-hover': '#FFCC33',
+          'rouge': '#F72C25',
+          'rouge-hover': '#F8403A',
+          'gris-text': '#ADADAD'
         },
+        },
+        screens: {
+          'size1': '1700px',
+          // => @media (min-width: 992px) { ... }
         },
     },
   },

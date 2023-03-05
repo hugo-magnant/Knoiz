@@ -1,7 +1,7 @@
-<div class="min-h-full h-full flex flex-1 flex-col md:pl-64">
-  <div class="relative w-full mt-4 flex justify-center">
+<div class="h-full flex flex-1 flex-col pl-[328px]">
+  <div class="relative w-full flex justify-center">
     <% unless notice.nil? %>
-      <div x-data="{ showNotice: true }" x-show="showNotice" class="absolute w-9/12 rounded-md bg-green-50 p-4">
+      <div x-data="{ showNotice: true }" x-show="showNotice" class="absolute w-9/12 mt-4 rounded-md bg-green-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <!-- Heroicon name: mini/check-circle -->
@@ -27,7 +27,7 @@
       </div>
     <% end %>
     <% unless flash[:info].nil? %>
-      <div x-data="{ showInfo: true }" x-show="showInfo" class="absolute w-9/12 rounded-md bg-yellow-50 p-4">
+      <div x-data="{ showInfo: true }" x-show="showInfo" class="absolute w-9/12 mt-4 rounded-md bg-yellow-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -52,7 +52,7 @@
       </div>
     <% end %>
     <% unless alert.nil? %>
-      <div x-data="{ showAlert: true }" x-show="showAlert" class="absolute w-9/12 rounded-md bg-red-50 p-4">
+      <div x-data="{ showAlert: true }" x-show="showAlert" class="absolute w-9/12 mt-4 rounded-md bg-red-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <!-- Heroicon name: mini/check-circle -->
@@ -87,25 +87,9 @@
       </svg>
     </button>
   </div>
-  <main class="flex-1">
-    <div class="mx-auto w-full h-full max-w-7xl py-10 sm:py-6 md:py-8 px-10 sm:px-6 md:px-8 flex flex-col justify-center items-center">
+  <main class="flex-1 h-screen p-10">
+    <div class="bg-knoiz-gris overflow-y-scroll rounded-3xl mx-auto w-full h-full p-10 flex flex-col">
       <%= yield %>
     </div>
   </main>
-  <% if session[:user_id].nil? or @current_user.subscription.active == false %>
-    <div class="w-full flex justify-center">
-      <div class="fixed bottom-0">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1126137883322280"
-      crossorigin="anonymous"></script>
-        <!-- Test pub spotilab -->
-        <ins class="adsbygoogle"
-      style="display:inline-block;width:728px;height:90px"
-      data-ad-client="ca-pub-1126137883322280"
-      data-ad-slot="6742175156"></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
-    </div>
-  <% end %>
 </div>
