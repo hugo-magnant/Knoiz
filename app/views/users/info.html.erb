@@ -4,7 +4,7 @@
   <div class="bg-knoiz-noir sm:mx-auto sm:w-full sm:max-w-md p-8 rounded-3xl">
     <h1 class="text-3xl font-medium text-knoiz-blanc mb-8">User profile</h1>
     <% if @subscription.active %>
-      <h2 class="text-white">Your current plan is Spotilab Plus.</h2>
+      <h2 class="text-white">Your current plan is Knoiz Plus.</h2>
       <p><%= @product[:description] %></p>
       <% if @subscription_info[:canceled_at].present? %>
         <p class="text-white">You requested cancellation on : <%= @subscription_info[:canceled_at] %>.</p>
@@ -22,9 +22,9 @@
         <% end %>
       <% end %>
     <% else %>
-      <h2 class="text-white">Your current plan is Spotilab Free.</h2>
+      <h2 class="text-white">Your current plan is Knoiz Free.</h2>
       <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-        <%= form.submit "Upgrade to Spotilab.ai Plus", class: "mt-4 cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-knoiz-violet-principale px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
+        <%= form.submit "Upgrade to Knoiz.ai Plus", class: "mt-4 cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-knoiz-violet-principale px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
       <% end %>
     <% end %>
     <%= form_tag url_for(:controller => 'sessions', :action => 'destroy'), method: :delete do %>
