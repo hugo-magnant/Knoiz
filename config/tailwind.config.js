@@ -29,7 +29,11 @@ module.exports = {
         },
         screens: {
           'size1': '1700px',
-          // => @media (min-width: 992px) { ... }
+          'size2': '1130px',
+          'size3': '800px',
+          'size4': '554px',
+          'size5': '500px',
+          'size6': '400px'
         },
     },
   },

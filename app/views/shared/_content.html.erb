@@ -1,4 +1,4 @@
-<div class="h-full flex flex-1 flex-col pl-[328px]">
+<div class="h-full flex flex-1 flex-col size2:pl-[328px]">
   <div class="relative w-full flex justify-center">
     <% unless notice.nil? %>
       <div x-data="{ showNotice: true }" x-show="showNotice" class="absolute w-9/12 mt-4 rounded-md bg-green-50 p-4">
@@ -78,17 +78,17 @@
       </div>
     <% end %>
   </div>
-  <div x-data="{id: 1}" class="sticky top-0 z-10 flex flex-shrink-0">
-    <button type="button" @click="$dispatch('open-dropdown',{id})" class="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden">
+  <div x-data="{id: 1}" class="sticky relative z-10 flex flex-shrink-0">
+    <button type="button" @click="$dispatch('open-dropdown',{id})" class="absolute m-4 bg-knoiz-violet-principale rounded-full p-4 text-knoiz-blanc focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 size2:hidden">
       <span class="sr-only">Open sidebar</span>
       <!-- Heroicon name: outline/bars-3-bottom-left -->
-      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
       </svg>
     </button>
   </div>
-  <main class="flex-1 h-screen p-10">
-    <div class="bg-knoiz-gris overflow-y-scroll rounded-3xl mx-auto w-full h-full p-10 flex flex-col">
+  <main class="flex-1 h-screen p-0 size5:p-10">
+    <div class="bg-knoiz-gris overflow-y-scroll rounded-none size5:rounded-3xl mx-auto w-full h-full p-10 flex flex-col">
       <%= yield %>
     </div>
   </main>

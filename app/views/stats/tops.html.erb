@@ -1,14 +1,14 @@
-<div data-controller="tops" class="flex flex-col bg-spotify-noir w-full py-8 px-8 sm:px-6 lg:px-8 rounded-3xl">
+<div data-controller="tops" class="flex flex-col bg-spotify-noir w-full rounded-3xl">
   <!-- Header Part -->
-  <div class="flex flex-row justify-between mb-6">
-    <div class="flex flex-row items-center mb-6">
-      <%= image_tag "spotify-logo.png", alt: "Spotify logo", class: "mr-4 w-auto h-[40px]" %>
-      <h1 class="text-3xl font-medium text-knoiz-blanc">Your top Listened Tracks</h1>
+  <div class="flex flex-col size3:flex-row justify-between mb-6">
+    <div class="flex flex-row items-center mb-6 size3:mb-0">
+      <%= image_tag "spotify-logo.png", alt: "Spotify logo", class: "mr-4 w-auto h-[28px] size6:h-[35px] size4:h-[40px]" %>
+      <h1 class="text-lg size6:text-2xl size4:text-3xl font-medium text-knoiz-blanc">Your top Listened</h1>
     </div>
-    <div>
+    <div class="flex flex-col items-start justify-center size6:flex-row size6:justify-start size6:items-center">
       <div x-data="{ dropdown: false }" class="relative inline-block text-left">
         <div>
-          <button @click="dropdown = !dropdown" type="button" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
+          <button @click="dropdown = !dropdown" type="button" class="w-fit text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none">
             <p id="object-type">Tracks</p>
             <!-- Heroicon name: mini/chevron-down -->
             <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -37,9 +37,9 @@
           </div>
         </div>
       </div>
-      <div x-data="{ dropdown: false }" class="relative inline-block text-left">
+      <div x-data="{ dropdown: false }" class="ml-0 mt-2 size6:mt-0 size6:ml-2 relative inline-block text-left">
         <div>
-          <button @click="dropdown = !dropdown" type="button" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
+          <button @click="dropdown = !dropdown" type="button" class="w-fit text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none">
             <p id="object-term">1 month</p>
             <!-- Heroicon name: mini/chevron-down -->
             <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
