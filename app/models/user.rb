@@ -33,7 +33,6 @@ class User < ApplicationRecord
     user = User.find_or_create_by(spotify_id: auth.uid)
     user.update(
       name: auth.info.name,
-      email: auth.info.email,
       spotify_token: auth.credentials.token,
       spotify_refresh_token: auth.credentials.refresh_token
     )

@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
     if @user.nil?
         @user = User.create(
           username: spotify_user.display_name,
-          email: spotify_user.email,
           spotify_id: spotify_user.id,
         )
         @user.profile.update(timestamp: Time.now)
@@ -21,7 +20,7 @@ class SessionsController < ApplicationController
         end
     else
         # Update the access_token and refresh_token if the user exists
-        @user.update(username: spotify_user.display_name, email: spotify_user.email)
+        @user.update(username: spotify_user.display_name)
         @user.profile.update(timestamp: Time.now)
         if spotify_user.images.any?
           @user.profile.update(image: spotify_user.images.first['url'])

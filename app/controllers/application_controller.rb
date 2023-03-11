@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
                 new_spotify_user = RSpotify::User.new(session[:spotify_user_data])
                 session[:spotify_user_data] = new_spotify_user.to_hash
 
-                @current_user.update(username: new_spotify_user.display_name, email: new_spotify_user.email)
+                @current_user.update(username: new_spotify_user.display_name)
                 @current_user.profile.update(timestamp: Time.now)
                 if new_spotify_user.images.any?
                   @current_user.profile.update(image: new_spotify_user.images.first['url'])
