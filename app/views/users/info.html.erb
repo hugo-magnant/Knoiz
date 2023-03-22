@@ -5,7 +5,6 @@
     <h1 class="text-3xl font-medium text-knoiz-blanc mb-8">User profile</h1>
     <% if @subscription.active %>
       <h2 class="text-white">Your current plan is Knoiz Plus.</h2>
-      <p><%= @product[:description] %></p>
       <% if @subscription_info[:canceled_at].present? %>
         <p class="text-white">You requested cancellation on : <%= @subscription_info[:canceled_at] %>.</p>
         <p class="text-white">You can keep using the subscription up until : <%= @subscription_info[:renews_on] %>.</p>

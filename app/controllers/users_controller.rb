@@ -31,7 +31,7 @@ class UsersController < ApplicationController
         stripe_subscription_id: stripe_session.subscription,
         active: true
       )
-      redirect_to root_path, notice: "Subscription to Djai.app premium successful !"
+      redirect_to root_path, notice: "Subscription to Knoiz Plus premium successful !"
     end
   end
 
