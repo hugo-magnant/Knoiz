@@ -3,8 +3,8 @@ development:
   encoding: unicode
   database: djai_development
   pool: 5
-  username: <%= ENV['POSTGRESQL_USER'] %>
-  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
+  username: djai
+  password: djai
   host: localhost
 
 test:
