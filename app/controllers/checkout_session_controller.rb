@@ -9,23 +9,38 @@ class CheckoutSessionController < ApplicationController
     end
 
     begin
-      prices = Stripe::Price.list(expand: ['data.product'])
-      session = Stripe::Checkout::Session.create({
-        if @current_user.subscription.stripe_user_id.present?
+      if @current_user.subscription.stripe_user_id.present?
+        prices = Stripe::Price.list(expand: ['data.product'])
+        session = Stripe::Checkout::Session.create({
           customer: customer_id,
-        end
-        mode: 'subscription',
-        line_items: [{
-          quantity: 1,
-          price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu'
-        }],
-        subscription_data: {
-          trial_period_days: 7
-        },
-        success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "#{request.base_url}/users/info",
-      })
-      redirect_to session.url, status: 303, allow_other_host: true
+          mode: 'subscription',
+          line_items: [{
+            quantity: 1,
+            price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu'
+          }],
+          subscription_data: {
+            trial_period_days: 7
+          },
+          success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
+          cancel_url: "#{request.base_url}/users/info",
+        })
+        redirect_to session.url, status: 303, allow_other_host: true
+      else
+        prices = Stripe::Price.list(expand: ['data.product'])
+        session = Stripe::Checkout::Session.create({
+          mode: 'subscription',
+          line_items: [{
+            quantity: 1,
+            price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu'
+          }],
+          subscription_data: {
+            trial_period_days: 7
+          },
+          success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
+          cancel_url: "#{request.base_url}/users/info",
+        })
+        redirect_to session.url, status: 303, allow_other_host: true
+      end
     rescue StandardError => e
       payload = { 'error': { message: e.error.message } }
       render :json => payload, :status => :bad_request
