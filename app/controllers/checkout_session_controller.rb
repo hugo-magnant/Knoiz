@@ -12,7 +12,7 @@ class CheckoutSessionController < ApplicationController
           price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu'
         }],
         discounts: [{
-          coupon: 'promo_1Mrhl2DY9Oz58rvRLNMsOu4q',
+          coupon: 'promo_1MriGRDY9Oz58rvRh6biyHDZ',
         }],
         success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: "#{request.base_url}/users/info",
