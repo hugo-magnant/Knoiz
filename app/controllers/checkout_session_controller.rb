@@ -3,9 +3,17 @@ class CheckoutSessionController < ApplicationController
   before_action :subscription_check, only: [:create]
 
   def create
+
+    if @current_user.subscription.stripe_user_id.present?
+      customer_id = @current_user.subscription.stripe_user_id
+    end
+
     begin
       prices = Stripe::Price.list(expand: ['data.product'])
       session = Stripe::Checkout::Session.create({
+        if @current_user.subscription.stripe_user_id.present?
+          customer: customer_id,
+        end
         mode: 'subscription',
         line_items: [{
           quantity: 1,
