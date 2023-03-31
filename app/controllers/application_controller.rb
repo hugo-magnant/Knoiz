@@ -19,6 +19,9 @@ class ApplicationController < ActionController::Base
             if subscriptions.data.any? { |sub| sub.status == 'active' }
                 @current_user.subscription.active = true
                 @current_user.subscription.save
+            elsif subscriptions.data.size == 1 && subscriptions.data.first.trial_end && Time.now.to_i < subscriptions.data.first.trial_end
+                @current_user.subscription.active = true
+                @current_user.subscription.save
             else
                 @current_user.subscription.active = false
                 @current_user.subscription.stripe_user_id = ""
