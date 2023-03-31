@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_11_090303) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_31_125554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_11_090303) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.datetime "timestamp", precision: nil, default: -> { "CURRENT_TIMESTAMP" }
+    t.datetime "timestamp", precision: nil, default: "2022-12-31 23:00:00"
     t.index ["user_id"], name: "index_spotifydata_on_user_id"
   end
 

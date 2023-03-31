@@ -12,8 +12,8 @@ test:
   encoding: unicode
   database: djai_test
   pool: 5
-  username: <%= ENV['POSTGRESQL_USER'] %>
-  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
+  username: djai
+  password: djai
 
 production:
   adapter: postgresql

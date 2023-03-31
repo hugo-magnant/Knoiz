@@ -12,7 +12,7 @@
           <p class="lg:ml-2 text-center lg:text-left text-sm text-knoiz-gris-text"><%= @last_played.first.artists.first.name %></p>
           <p class="lg:ml-2 text-center lg:text-left text-sm text-knoiz-gris-text"><%= @last_played.first.album.name %></p>
           <div class="w-full flex justify-center lg:w-fit">
-            <%= link_to @last_played.first.external_urls["spotify"], method: :post, class: "w-fit  mt-4 text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
+            <%= link_to @last_played.first.external_urls["spotify"], method: :post, class: "w-fit  mt-4 text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none", target: "_blank" do %>
               <%= image_tag "spotify-logo.png", alt: "Listen on Spotify", class: "mr-2 h-5 w-5" %>
               Listen on Spotify
             <% end %>
@@ -27,7 +27,7 @@
           <p class="lg:ml-2 text-sm text-knoiz-gris-text"><%= @is_playing_artist %></p>
           <p class="lg:ml-2 text-sm text-knoiz-gris-text"><%= @is_playing_album %></p>
           <div class="w-full flex justify-center lg:w-fit">
-            <%= link_to @is_playing_track_link, method: :post, class: "w-fit  mt-4 text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
+            <%= link_to @is_playing_track_link, method: :post, class: "w-fit  mt-4 text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none", target: "_blank" do %>
               <%= image_tag "spotify-logo.png", alt: "Listen on Spotify", class: "mr-2 h-5 w-5" %>
               Listen on Spotify
             <% end %>

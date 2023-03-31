@@ -1,7 +1,7 @@
 <div class="h-full flex flex-1 flex-col size2:pl-[328px]">
   <div class="relative w-full flex justify-center">
     <% unless notice.nil? %>
-      <div x-data="{ showNotice: true }" x-show="showNotice" class="absolute w-9/12 mt-4 rounded-md bg-green-50 p-4">
+      <div x-data="{ showNotice: true }" x-show="showNotice" class="z-50 absolute w-9/12 mt-4 rounded-md bg-green-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <!-- Heroicon name: mini/check-circle -->
@@ -27,7 +27,7 @@
       </div>
     <% end %>
     <% unless flash[:info].nil? %>
-      <div x-data="{ showInfo: true }" x-show="showInfo" class="absolute w-9/12 mt-4 rounded-md bg-yellow-50 p-4">
+      <div x-data="{ showInfo: true }" x-show="showInfo" class="z-50 absolute w-9/12 mt-4 rounded-md bg-yellow-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -52,7 +52,7 @@
       </div>
     <% end %>
     <% unless alert.nil? %>
-      <div x-data="{ showAlert: true }" x-show="showAlert" class="absolute w-9/12 mt-4 rounded-md bg-red-50 p-4">
+      <div x-data="{ showAlert: true }" x-show="showAlert" class="z-50 absolute w-9/12 mt-4 rounded-md bg-red-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <!-- Heroicon name: mini/check-circle -->
