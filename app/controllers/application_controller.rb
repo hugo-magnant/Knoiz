@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
         if !session[:user_id].nil? and @current_user.subscription.active == true
             subscriptions = Stripe::Subscription.list(customer: @current_user.subscription.stripe_user_id)
             if subscriptions.data.any? { |sub| sub.status == 'active' }
-            # User is currently subscribed
+                @current_user.subscription.active = true
             else
                 @current_user.subscription.active = false
                 @current_user.subscription.stripe_user_id = ""
