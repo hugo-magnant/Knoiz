@@ -11,6 +11,10 @@ class CheckoutSessionController < ApplicationController
           quantity: 1,
           price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu'
         }],
+        subscription_data: {
+          trial_period_days: 7,
+          items: [{ price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu' }]
+        },
         success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: "#{request.base_url}/users/info",
       })
