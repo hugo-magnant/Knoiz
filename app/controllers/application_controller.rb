@@ -18,10 +18,12 @@ class ApplicationController < ActionController::Base
             subscriptions = Stripe::Subscription.list(customer: @current_user.subscription.stripe_user_id)
             if subscriptions.data.any? { |sub| sub.status == 'active' }
                 @current_user.subscription.active = true
+                @current_user.subscription.save
             else
                 @current_user.subscription.active = false
                 @current_user.subscription.stripe_user_id = ""
                 @current_user.subscription.stripe_subscription_id = ""
+                @current_user.subscription.canceled = false
                 @current_user.subscription.save
             end
         end
