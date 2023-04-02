@@ -1,13 +1,12 @@
 class SubscriptionsController < ApplicationController
-  
   def new
     session = Stripe::Checkout::Session.create({
       success_url: root_url,
       cancel_url: new_subscription_url,
       line_items: [
-        {price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu', quantity: 1},
+        { price: "price_1MoUcjDY9Oz58rvRDVS53Wiu", quantity: 1 },
       ],
-      mode: 'subscription',
+      mode: "subscription",
     })
     @session_id = session.id
   end
@@ -18,7 +17,7 @@ class SubscriptionsController < ApplicationController
     customer_id = session.customer
     subscription = Stripe::Subscription.create({
       customer: customer_id,
-      items: [{plan: 'premium_plan'}],
+      items: [{ plan: "premium_plan" }],
     })
     @current_user.subscription.update(stripe_user_id: customer_id, stripe_subscription_id: subscription.id, active: true, canceled: false)
     redirect_to subscriptions_success_path
@@ -32,7 +31,7 @@ class SubscriptionsController < ApplicationController
     subscription.cancel_at_period_end = false
     subscription.save
     @current_user.subscription.update(canceled: false)
-    redirect_to root_path, notice: "Votre abonnement sera renouvelé."
+    redirect_to root_path, notice: "Your subscription will be renewed."
   end
 
   def cancel
@@ -40,7 +39,6 @@ class SubscriptionsController < ApplicationController
     subscription.cancel_at_period_end = true
     subscription.save
     @current_user.subscription.update(canceled: true)
-    redirect_to root_path, notice: "Votre abonnement a été annulé."
+    redirect_to root_path, notice: "Your subscription has been canceled."
   end
-
 end

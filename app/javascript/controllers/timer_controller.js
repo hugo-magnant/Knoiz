@@ -1,14 +1,14 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["countdown"];
 
   connect() {
-    const timestamp = this.element.getAttribute('data-timestamp');
+    const timestamp = this.element.getAttribute("data-timestamp");
     const now = Math.floor(Date.now() / 1000);
-    const submitBtn = document.getElementById('submitBtn');
+    const submitBtn = document.getElementById("submitBtn");
 
-    if (this.element.getAttribute('data-subscription') === 'true') {
+    if (this.element.getAttribute("data-subscription") === "true") {
       const timeLeft = 60 - (now - timestamp);
       if (timeLeft > 0) {
         this.startCountdown(timeLeft, submitBtn);
@@ -36,7 +36,7 @@ export default class extends Controller {
       timeLeft--;
 
       if (timeLeft <= 0) {
-        this.countdownTarget.innerText = '';
+        this.countdownTarget.innerText = "";
         submitBtn.disabled = false;
         submitBtn.classList.add("cursor-pointer");
         submitBtn.classList.add("hover:bg-spotify-vert-hover");
@@ -46,7 +46,9 @@ export default class extends Controller {
         const hours = Math.floor(timeLeft / 3600);
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
-        this.countdownTarget.innerText = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        this.countdownTarget.innerText = `${hours}:${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
       }
     }, 1000);
   }

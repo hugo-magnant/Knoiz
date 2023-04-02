@@ -23,7 +23,7 @@
     <% else %>
       <h2 class="text-white">Your current plan is Knoiz Free.</h2>
       <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-        <%= form.submit "Upgrade to Knoiz.ai Plus", class: "mt-4 cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-knoiz-violet-principale px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
+        <%= form.submit "Upgrade to Knoiz Plus", class: "mt-4 cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-knoiz-violet-principale px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
       <% end %>
     <% end %>
     <%= form_tag url_for(:controller => 'sessions', :action => 'destroy'), method: :delete do %>

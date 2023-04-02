@@ -76,8 +76,18 @@
         <div class="mb-8 px-6 sm:px-4">
           <h2 class="text-lg font-medium leading-6 text-knoiz-blanc">Plus</h2>
           <p class="mt-4">
-            <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">$1.99</span>
-            <span class="text-base font-medium text-knoiz-blanc">/wk</span>
+            <% if @current_user %>
+              <% if @current_user.subscription.stripe_user_id.present? %>
+                <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">$1.99</span>
+                <span class="text-base font-medium text-knoiz-blanc">/wk</span>
+              <% else %>
+                <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">7 days free</span><br>
+                <span class="text-base font-medium text-knoiz-blanc">Then $1.99/wk</span>
+              <% end %>
+            <% else %>
+              <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">7 days free</span><br>
+              <span class="text-base font-medium text-knoiz-blanc">Then $1.99/wk</span>
+            <% end %>
           </p>
           <p class="mt-4 text-sm text-knoiz-blanc">Unlock all features with Knoiz Plus and get the ultimate music experience. Access exclusive characteristics to create personalized playlists and track detailed statistics of your Spotify account.</p>
           <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
@@ -185,8 +195,18 @@
               <div class="flex h-full flex-col justify-between">
                 <div>
                   <p>
-                    <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">$1.99</span>
-                    <span class="text-base font-medium text-knoiz-blanc">/wk</span>
+                    <% if @current_user %>
+                      <% if @current_user.subscription.stripe_user_id.present? %>
+                        <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">$1.99</span>
+                        <span class="text-base font-medium text-knoiz-blanc">/wk</span>
+                      <% else %>
+                        <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">7 days free</span><br>
+                        <span class="text-base font-medium text-knoiz-blanc">Then $1.99/wk</span>
+                      <% end %>
+                    <% else%>
+                      <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">7 days free</span><br>
+                      <span class="text-base font-medium text-knoiz-blanc">Then $1.99/wk</span>
+                    <% end %>
                   </p>
                   <p class="mt-4 text-sm text-knoiz-blanc">Unlock all features with Knoiz Plus and get the ultimate music experience. Access exclusive characteristics to create personalized playlists and track detailed statistics of your Spotify account.</p>
                 </div>

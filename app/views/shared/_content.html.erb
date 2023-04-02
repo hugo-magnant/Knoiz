@@ -1,7 +1,78 @@
 <div class="h-full flex flex-1 flex-col size2:pl-[328px]">
   <div class="relative w-full flex justify-center">
+    <% if @current_user %>
+      <% if !@current_user.subscription.stripe_user_id.present? %>
+        <div data-controller="notification" data-notification-key-value="lastNotificationShownAt" x-data="{ notification: true }" x-show="notification" class="z-50 pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
+          <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
+            <div class="pointer-events-auto w-full max-w-sm rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+              <div class="w-full flex flex-col p-4">
+                <div class="w-full flex flex-row justify-between">
+                  <div class="flex flex-row items-center">
+                    <div class="flex-shrink-0 pt-0.5">
+                      <%= image_tag "knoiz-logo-bg-blanc.png", alt: "Knoiz logo", class: "h-10 w-10 rounded-full" %>
+                    </div>
+                    <div class="ml-3 flex-1">
+                      <p class="text-xl font-medium text-gray-900">7 days free trial</p>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="ml-4 flex flex-shrink-0">
+                      <button @click="notification = false" type="button" class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-knoiz-violet-principale focus:ring-offset-2">
+                        <span class="sr-only">Close</span>
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-full mt-4 flex">
+                  <%= form_with url: '/checkout_session/create', data: { turbo: false }, class: "w-full" do |form| %>
+                    <%= form.submit "Get started today", class: "cursor-pointer w-full inline-flex items-center rounded-xl bg-knoiz-violet-principale px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-knoiz-violet-principale-hover" %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div data-controller="notification" data-notification-key-value="lastNotificationShownAt" x-data="{ notification: true }" x-show="notification" class="z-40 pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
+        <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
+          <div class="pointer-events-auto w-full max-w-sm rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+            <div class="w-full flex flex-col p-4">
+              <div class="w-full flex flex-row justify-between">
+                <div class="flex flex-row items-center">
+                  <div class="flex-shrink-0 pt-0.5">
+                    <%= image_tag "knoiz-logo-bg-blanc.png", alt: "Knoiz logo", class: "h-10 w-10 rounded-full" %>
+                  </div>
+                  <div class="ml-3 flex-1">
+                    <p class="text-xl font-medium text-gray-900">7 days free trial</p>
+                  </div>
+                </div>
+                <div>
+                  <div class="ml-4 flex flex-shrink-0">
+                    <button @click="notification = false" type="button" class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-knoiz-violet-principale focus:ring-offset-2">
+                      <span class="sr-only">Close</span>
+                      <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="w-full mt-4 flex">
+                <%= form_with url: '/checkout_session/create', data: { turbo: false }, class: "w-full" do |form| %>
+                  <%= form.submit "Get started today", class: "cursor-pointer w-full inline-flex items-center rounded-xl bg-knoiz-violet-principale px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-knoiz-violet-principale-hover" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <% unless notice.nil? %>
-      <div x-data="{ showNotice: true }" x-show="showNotice" class="z-50 absolute w-9/12 mt-4 rounded-md bg-green-50 p-4">
+      <div x-data="{ showNotice: true }" x-show="showNotice" class="z-40 absolute w-9/12 mt-4 rounded-md bg-green-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <!-- Heroicon name: mini/check-circle -->
@@ -27,7 +98,7 @@
       </div>
     <% end %>
     <% unless flash[:info].nil? %>
-      <div x-data="{ showInfo: true }" x-show="showInfo" class="z-50 absolute w-9/12 mt-4 rounded-md bg-yellow-50 p-4">
+      <div x-data="{ showInfo: true }" x-show="showInfo" class="z-40 absolute w-9/12 mt-4 rounded-md bg-yellow-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -52,7 +123,7 @@
       </div>
     <% end %>
     <% unless alert.nil? %>
-      <div x-data="{ showAlert: true }" x-show="showAlert" class="z-50 absolute w-9/12 mt-4 rounded-md bg-red-50 p-4">
+      <div x-data="{ showAlert: true }" x-show="showAlert" class="z-40 absolute w-9/12 mt-4 rounded-md bg-red-50 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <!-- Heroicon name: mini/check-circle -->
@@ -79,7 +150,7 @@
     <% end %>
   </div>
   <div x-data="{id: 1}" class="sticky relative z-10 flex flex-shrink-0">
-    <button type="button" @click="$dispatch('open-dropdown',{id})" class="absolute m-4 bg-knoiz-violet-principale rounded-full p-4 text-knoiz-blanc focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 size2:hidden">
+    <button type="button" @click="$dispatch('open-dropdown',{id})" class="absolute m-4 bg-knoiz-violet-principale rounded-full p-4 text-knoiz-blanc size2:hidden">
       <span class="sr-only">Open sidebar</span>
       <!-- Heroicon name: outline/bars-3-bottom-left -->
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">

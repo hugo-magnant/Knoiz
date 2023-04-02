@@ -1,7 +1,7 @@
 require_relative "boot"
 require "rails/all"
 
-require 'dotenv/load'
+require "dotenv/load"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -21,8 +21,7 @@ module Djai
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.require_master_key = true
-    
-    RSpotify::authenticate(ENV['SPOTIFY_ID'], ENV['SPOTIFY_KEY'])
 
+    RSpotify::authenticate(ENV["SPOTIFY_ID"], ENV["SPOTIFY_KEY"])
   end
 end

@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
-
-  def create 
-
+  def create
   end
 
   def info
@@ -11,12 +9,12 @@ class UsersController < ApplicationController
       stripe_product = Stripe::Product.retrieve(ss.items.data.first.plan.product)
       @product = {
         name: stripe_product.name,
-        description: stripe_product.description
+        description: stripe_product.description,
       }
       @subscription_info = {
         renews_on: Time.at(ss.current_period_end).strftime("%Y-%m-%d"),
         canceled_at: ss.canceled_at.present? ? Time.at(ss.canceled_at).strftime("%Y-%m-%d") : nil,
-        ends_on: ss.canceled_at.present? ? Time.at(ss.canceled_at).strftime("%Y-%m-%d") : Time.at(ss.current_period_end).strftime("%Y-%m-%d")
+        ends_on: ss.canceled_at.present? ? Time.at(ss.canceled_at).strftime("%Y-%m-%d") : Time.at(ss.current_period_end).strftime("%Y-%m-%d"),
       }
     end
   end
@@ -29,10 +27,11 @@ class UsersController < ApplicationController
       @current_user.subscription.update(
         stripe_user_id: stripe_session.customer,
         stripe_subscription_id: stripe_session.subscription,
-        active: true
+        active: true,
+        canceled: false,
       )
-      redirect_to root_path, notice: "Subscription to Knoiz Plus premium successful !"
+      @current_user.subscription.save
+      redirect_to root_path, notice: "Subscription to Knoiz Plus successful !"
     end
   end
-
 end

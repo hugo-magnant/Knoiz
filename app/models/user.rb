@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one :profile
   has_one :wallet
   has_one :spotifydata
-  
+
   after_create :create_subscription
   after_create :create_profile
   after_create :create_wallet
@@ -27,16 +27,14 @@ class User < ApplicationRecord
   def create_spotifydata
     self.create_spotifydata!
   end
-  
-  
+
   def self.from_omniauth(auth)
     user = User.find_or_create_by(spotify_id: auth.uid)
     user.update(
       name: auth.info.name,
       spotify_token: auth.credentials.token,
-      spotify_refresh_token: auth.credentials.refresh_token
+      spotify_refresh_token: auth.credentials.refresh_token,
     )
     user
   end
-
 end

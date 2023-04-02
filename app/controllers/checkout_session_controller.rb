@@ -1,37 +1,35 @@
 class CheckoutSessionController < ApplicationController
-
   before_action :subscription_check, only: [:create]
 
   def create
-
     if @current_user.subscription.stripe_user_id.present?
       customer_id = @current_user.subscription.stripe_user_id
     end
 
     begin
       if @current_user.subscription.stripe_user_id.present?
-        prices = Stripe::Price.list(expand: ['data.product'])
+        prices = Stripe::Price.list(expand: ["data.product"])
         session = Stripe::Checkout::Session.create({
           customer: customer_id,
-          mode: 'subscription',
+          mode: "subscription",
           line_items: [{
             quantity: 1,
-            price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu'
+            price: "price_1MoUcjDY9Oz58rvRDVS53Wiu",
           }],
           success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
           cancel_url: "#{request.base_url}/users/info",
         })
         redirect_to session.url, status: 303, allow_other_host: true
       else
-        prices = Stripe::Price.list(expand: ['data.product'])
+        prices = Stripe::Price.list(expand: ["data.product"])
         session = Stripe::Checkout::Session.create({
-          mode: 'subscription',
+          mode: "subscription",
           line_items: [{
             quantity: 1,
-            price: 'price_1MoUcjDY9Oz58rvRDVS53Wiu'
+            price: "price_1MoUcjDY9Oz58rvRDVS53Wiu",
           }],
           subscription_data: {
-            trial_period_days: 7
+            trial_period_days: 7,
           },
           success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
           cancel_url: "#{request.base_url}/users/info",
@@ -48,7 +46,7 @@ class CheckoutSessionController < ApplicationController
     begin
       session = Stripe::BillingPortal::Session.create({
         customer: @current_user.subscription.stripe_user_id,
-        return_url: "#{request.base_url}/users/manage"
+        return_url: "#{request.base_url}/users/manage",
       })
       redirect_to session.url, status: 303, allow_other_host: true
     rescue StandardError => e
@@ -71,7 +69,5 @@ class CheckoutSessionController < ApplicationController
     else
       redirect_to pricing_path, alert: "You must be logged in."
     end
-    
   end
-
 end
