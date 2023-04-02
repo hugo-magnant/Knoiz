@@ -26,7 +26,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-full mt-4 flex">
+                <div class="w-full mt-4 flex justify-center">
                   <%= form_with url: '/checkout_session/create', data: { turbo: false }, class: "w-full" do |form| %>
                     <%= form.submit "Get started today", class: "text-center cursor-pointer w-full inline-flex items-center rounded-xl bg-knoiz-violet-principale px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-knoiz-violet-principale-hover" %>
                   <% end %>
@@ -61,9 +61,9 @@
                   </div>
                 </div>
               </div>
-              <div class="w-full mt-4 flex">
+              <div class="w-full mt-4 flex justify-center">
                 <%= form_with url: '/checkout_session/create', data: { turbo: false }, class: "w-full" do |form| %>
-                  <%= form.submit "Get started today", class: "text-center cursor-pointer w-full inline-flex items-center rounded-xl bg-knoiz-violet-principale px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-knoiz-violet-principale-hover" %>
+                  <%= form.submit "Get started today", class: "cursor-pointer w-full inline-flex items-center rounded-xl bg-knoiz-violet-principale px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-knoiz-violet-principale-hover" %>
                 <% end %>
               </div>
             </div>
