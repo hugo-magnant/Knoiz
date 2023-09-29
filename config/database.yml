@@ -1,24 +1,24 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: djai_development
+  database: Wisdom_development
   pool: 5
-  username: djai
-  password: djai
+  username: hugo
+  password: root
   host: localhost
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: djai_test
+  database: Wisdom_test
   pool: 5
-  username: djai
-  password: djai
+  username: hugo
+  password: root
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: djai_production
+  database: Wisdom_production
   pool: 5
   username: <%= ENV['POSTGRESQL_USER'] %>
   password: <%= ENV['POSTGRESQL_PASSWORD'] %>

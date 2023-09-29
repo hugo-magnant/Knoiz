@@ -1,73 +1,46 @@
 class CheckoutSessionController < ApplicationController
   before_action :subscription_check, only: [:create]
 
+  # Méthode pour créer une nouvelle session de paiement avec Stripe
   def create
-    if @current_user.subscription.stripe_user_id.present?
-      customer_id = @current_user.subscription.stripe_user_id
-    end
+    # Initialise le service de souscription avec les paramètres de l'utilisateur courant et des prix Stripe
+    service = StripeServices::SubscriptionService.new(@current_user, StripePrice)
+    # Appelle la méthode pour créer une souscription et stocke le résultat
+    result = service.create_subscription
 
-    begin
-      if @current_user.subscription.stripe_user_id.present?
-        prices = Stripe::Price.list(expand: ["data.product"])
-        session = Stripe::Checkout::Session.create({
-          customer: customer_id,
-          mode: "subscription",
-          line_items: [{
-            quantity: 1,
-            price: "price_1MoUcjDY9Oz58rvRDVS53Wiu",
-          }],
-          success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
-          cancel_url: "#{request.base_url}/users/info",
-        })
-        redirect_to session.url, status: 303, allow_other_host: true
-      else
-        prices = Stripe::Price.list(expand: ["data.product"])
-        session = Stripe::Checkout::Session.create({
-          mode: "subscription",
-          line_items: [{
-            quantity: 1,
-            price: "price_1MoUcjDY9Oz58rvRDVS53Wiu",
-          }],
-          subscription_data: {
-            trial_period_days: 7,
-          },
-          success_url: "#{request.base_url}/users/charge?session_id={CHECKOUT_SESSION_ID}",
-          cancel_url: "#{request.base_url}/users/info",
-        })
-        redirect_to session.url, status: 303, allow_other_host: true
-      end
-    rescue StandardError => e
-      payload = { 'error': { message: e.error.message } }
-      render :json => payload, :status => :bad_request
+    # Redirige selon le succès ou l'échec de la création de la souscription
+    if result[:error]
+      redirect_to root_path, alert: result[:error]
+    else
+      redirect_to result[:redirect_url], status: 303, allow_other_host: true
     end
   end
 
+  # Méthode pour créer une nouvelle session de portail de facturation avec Stripe
   def create_portal_session
-    begin
-      session = Stripe::BillingPortal::Session.create({
-        customer: @current_user.subscription.stripe_user_id,
-        return_url: "#{request.base_url}/users/manage",
-      })
-      redirect_to session.url, status: 303, allow_other_host: true
-    rescue StandardError => e
-      payload = { 'error': { message: e.error.message } }
-      render :json => payload, :status => :bad_request
+    # Initialise le service de portail de facturation
+    service = StripeServices::BillingPortalService.new(@current_user)
+    # Crée une nouvelle session de portail de facturation et stocke le résultat
+    result = service.create_billing_portal_session
+
+    # Redirige selon le succès ou l'échec de la création de la session de portail de facturation
+    if result[:error]
+      redirect_to root_path, alert: result[:error]
+    else
+      redirect_to result[:redirect_url], status: 303, allow_other_host: true
     end
   end
 
   private
 
+  # Méthode privée pour vérifier l'état de l'abonnement avant de créer une nouvelle session de paiement
   def subscription_check
-    if !session[:user_id].nil?
-      if @current_user.subscription.active == true and @current_user.subscription.canceled == true
-        flash[:info] = "You are already subscribed. To resume your subscription, please click on the 'Resume my subscription' button."
-        redirect_to info_path
-      elsif @current_user.subscription.active == true
-        flash[:info] = "You are already subscribed."
-        redirect_to pricing_path
-      end
-    else
-      redirect_to pricing_path, alert: "You must be logged in."
+    # Appelle un service pour vérifier l'état de l'abonnement
+    result = StripeServices::SubscriptionCheckService.new(@current_user, session[:user_id]).call
+
+    # Redirige l'utilisateur selon le résultat de la vérification
+    if result[:redirect_path]
+      redirect_to result[:redirect_path], alert: result[:alert], flash: { info: result[:info] }
     end
   end
 end

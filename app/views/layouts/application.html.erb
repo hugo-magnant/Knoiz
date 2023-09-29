@@ -10,16 +10,9 @@
     <%= favicon_link_tag 'favicon.ico' %>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <%= javascript_importmap_tags %>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FFG4RLVFRC"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-FFG4RLVFRC');
-    </script>
   </head>
   <body class="h-full bg-knoiz-noir">
-    <%= render "shared/layout" %>
+    <%= render "shared/navbar" %>
+    <%= render "shared/content" %>
   </body>
 </html>

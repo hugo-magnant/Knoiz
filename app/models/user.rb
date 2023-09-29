@@ -1,40 +1,40 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_one :subscription, dependent: :destroy
+  has_one :profile, dependent: :destroy
+  has_one :wallet, dependent: :destroy
+  has_one :spotifydata, dependent: :destroy
 
-  has_one :subscription
-  has_one :profile
-  has_one :wallet
-  has_one :spotifydata
+  after_create :initialize_related_models
 
-  after_create :create_subscription
-  after_create :create_profile
-  after_create :create_wallet
-  after_create :create_spotifydata
+  def initialize_related_models
+    create_subscription
+    create_profile
+    create_wallet
+    create_spotifydata
+  end
 
   def create_subscription
-    Subscription.create(user_id: id) if subscription.nil?
+    create_subscription!
   end
 
   def create_profile
-    self.create_profile!
+    create_profile!
   end
 
   def create_wallet
-    self.create_wallet!
+    create_wallet!
   end
 
   def create_spotifydata
-    self.create_spotifydata!
+    create_spotifydata!
   end
 
   def self.from_omniauth(auth)
-    user = User.find_or_create_by(spotify_id: auth.uid)
-    user.update(
-      name: auth.info.name,
-      spotify_token: auth.credentials.token,
-      spotify_refresh_token: auth.credentials.refresh_token,
-    )
-    user
+    where(spotify_id: auth.uid).first_or_initialize.tap do |user|
+      user.name = auth.info.name
+      user.spotify_token = auth.credentials.token
+      user.spotify_refresh_token = auth.credentials.refresh_token
+      user.save!
+    end
   end
 end

@@ -1,4 +1,3 @@
-<!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
 <div x-data="{ isOpen: false }" @open-dropdown.window="if ($event.detail.id == 1) isOpen = true" class="relative z-40 size2:hidden" role="dialog" aria-modal="true">
   <div  :class="isOpen ? '' : 'hidden'" >
     <div
@@ -25,7 +24,6 @@
         <div class="absolute top-0 right-0 -mr-12 pt-2">
           <button type="button" @click="isOpen = !isOpen" class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <span class="sr-only">Close sidebar</span>
-            <!-- Heroicon name: outline/x-mark -->
             <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -49,15 +47,9 @@
               Stats
             </a>
             <% if params[:controller] == "stats" %>
-              <a href="<%= tops_path %>" class="ml-6 <% if display_tops? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-                Your top Listened
-              </a>
-              <a href="<%= recently_path %>" class="ml-6 <% if display_recently? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-                Recently played
-              </a>
-              <a href="<%= top_global_path %>" class="ml-6 <% if display_top_global? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-                Top 50 global tracks
-              </a>
+              <%= nav_link("Your top Listened", tops_path, display_tops?) %>
+              <%= nav_link("Recently played", recently_path, display_recently?) %>
+              <%= nav_link("Top 50 global tracks", top_global_path, display_top_global?) %>
             <% end %>
             <a href="<%= pricing_path %>" class="text-gray-300 <% if params[:controller] == "pricing" %>bg-knoiz-gris<% end %> hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
               <svg class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -65,18 +57,10 @@
               </svg>
               Pricing
             </a>
-            <% if @current_user %>
-              <% if !@current_user.subscription.stripe_user_id.present? %>
-                <a>
-                  <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-                    <%= form.submit "7 days free trial", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
-                  <% end %>
-                </a>
-              <% end %>
-            <% else %>
+            <% if @current_user.nil? || !@current_user.subscription.stripe_user_id.present? %>
               <a>
                 <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-                  <%= form.submit "7 days free trial", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
+                  <%= form.submit "Upgrade to Plus", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
                 <% end %>
               </a>
             <% end %>
@@ -108,14 +92,11 @@
         <% end %>
       </div>
       <div class="w-14 flex-shrink-0">
-        <!-- Force sidebar to shrink to fit close icon -->
       </div>
     </div>
   </div>
 </div>
-<!-- Static sidebar for desktop -->
 <div class="hidden fixed inset-y-0 size2:flex pt-10 pl-10 pb-10 w-72 size2:flex-col">
-  <!-- Sidebar component, swap this element with another sidebar if you like -->
   <div class="flex min-h-0 flex-1 flex-col bg-knoiz-noir">
     <div class="flex flex-1 flex-col overflow-y-auto">
       <div class="flex flex-shrink-0 items-center justify-center mt-6 mb-6">
@@ -135,15 +116,9 @@
           Stats
         </a>
         <% if params[:controller] == "stats" %>
-          <a href="<%= tops_path %>" class="ml-6 <% if display_tops? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-            Your top Listened
-          </a>
-          <a href="<%= recently_path %>" class="ml-6 <% if display_recently? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-            Recently played
-          </a>
-          <a href="<%= top_global_path %>" class="ml-6 <% if display_top_global? %>bg-knoiz-gris<% end %> mb-2 text-knoiz-blanc hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-            Top 50 global tracks
-          </a>
+          <%= nav_link("Your top Listened", tops_path, display_tops?) %>
+          <%= nav_link("Recently played", recently_path, display_recently?) %>
+          <%= nav_link("Top 50 global tracks", top_global_path, display_top_global?) %>
         <% end %>
         <a href="<%= pricing_path %>" class="text-gray-300 <% if params[:controller] == "pricing" %>bg-knoiz-gris<% end %> hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
           <svg class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -151,18 +126,10 @@
           </svg>
           Pricing
         </a>
-        <% if @current_user %>
-          <% if !@current_user.subscription.stripe_user_id.present? %>
-            <a>
-              <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-                <%= form.submit "7 days free trial", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
-              <% end %>
-            </a>
-          <% end %>
-        <% else %>
+        <% if @current_user.nil? || !@current_user.subscription.stripe_user_id.present? %>
           <a>
             <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-              <%= form.submit "7 days free trial", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
+              <%= form.submit "Upgrade to Plus", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
             <% end %>
           </a>
         <% end %>

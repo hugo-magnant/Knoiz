@@ -1,327 +1,68 @@
+<!-- Last played / Genre -->
 <div class="w-full flex flex-col size1:flex-row mb-10">
   <div class="rounded-3xl bg-knoiz-noir w-full h-fit size1:h-full size1:w-9/12 p-10 mb-10 size1:mr-10 size1:mb-0">
     <div class="mb-6 flex flex-row items-center">
-      <%= image_tag "spotify-logo.png", alt: "Spotify logo", class: "mr-4 w-auto h-[28px] size6:h-[35px] size4:h-[40px]" %>
-      <h1 class="text-lg size6:text-2xl size4:text-3xl font-medium text-knoiz-blanc"><% if @last_played %>Lastly played on Spotify<% elsif @is_playing_statut == true %>Currently played on Spotify<% elsif @is_playing_statut == false %>Currently paused on Spotify<%end%></h1>
+      <%= render 'shared/stats/spotify_header', title: (@last_played ? 'Lastly played on Spotify' : (@is_playing_statut ? 'Currently played on Spotify' : 'Currently paused on Spotify')) %>
     </div>
-    <% if @last_played %>
-      <div class="w-full h-5/6 flex flex-col lg:flex-row items-center justify-center">
-        <img src="<%= @last_played.first.album.images.first['url'] %>" class="w-52 lg:w-44 object-cover object-center group-hover:opacity-75">
-        <div class="flex flex-col mt-4 lg:ml-8 lg:mt-0">
-          <p class="lg:ml-2 text-center lg:text-left text-lg text-knoiz-blanc"><%= @last_played.first.name %></p>
-          <p class="lg:ml-2 text-center lg:text-left text-sm text-knoiz-gris-text"><%= @last_played.first.artists.first.name %></p>
-          <p class="lg:ml-2 text-center lg:text-left text-sm text-knoiz-gris-text"><%= @last_played.first.album.name %></p>
-          <div class="w-full flex justify-center lg:w-fit">
-            <%= link_to @last_played.first.external_urls["spotify"], method: :post, class: "w-fit  mt-4 text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none", target: "_blank" do %>
-              <%= image_tag "spotify-logo.png", alt: "Listen on Spotify", class: "mr-2 h-5 w-5" %>
-              Listen on Spotify
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% elsif @is_playing_statut == true or @is_playing_statut == false %>
-      <div class="w-full h-5/6 flex flex-col lg:flex-row items-center justify-center">
-        <img src="<%= @is_playing_album_image %>" class="w-52 lg:w-44 object-cover object-center group-hover:opacity-75">
-        <div class="flex flex-col mt-4 lg:ml-8 lg:mt-0">
-          <p class="lg:ml-2 text-lg text-knoiz-blanc"><%= @is_playing_name %></p>
-          <p class="lg:ml-2 text-sm text-knoiz-gris-text"><%= @is_playing_artist %></p>
-          <p class="lg:ml-2 text-sm text-knoiz-gris-text"><%= @is_playing_album %></p>
-          <div class="w-full flex justify-center lg:w-fit">
-            <%= link_to @is_playing_track_link, method: :post, class: "w-fit  mt-4 text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none", target: "_blank" do %>
-              <%= image_tag "spotify-logo.png", alt: "Listen on Spotify", class: "mr-2 h-5 w-5" %>
-              Listen on Spotify
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <%= render 'shared/stats/spotify_song_info', spotify_info: @spotify_info %>
   </div>
   <div class="rounded-3xl bg-knoiz-noir w-full p-10">
-    <div class="flex flex-row items-center mb-6">
-      <%= image_tag "spotify-logo.png", alt: "Spotify logo", class: "mr-4 w-auto h-[28px] size6:h-[35px] size4:h-[40px]" %>
-      <h1 class="text-lg size6:text-2xl size4:text-3xl font-medium text-knoiz-blanc">Most listened genres</h1>
-    </div>
+    <%= render 'shared/stats/header', title: 'Most listened genres' %>
     <div class="flex flex-col w-full">
-      <div class="bg-knoiz-violet-principale px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 90%;">
-        <p class="text-knoiz-blanc"><%= @current_user.spotifydata.favorite_genre[0][0] %></p>
-      </div>
-      <div class="bg-knoiz-violet-principale px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 75%;">
-        <p class="text-knoiz-blanc"><%= @current_user.spotifydata.favorite_genre[1][0] %></p>
-      </div>
-      <div class="bg-knoiz-violet-principale px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 70%;">
-        <p class="text-knoiz-blanc"><%= @current_user.spotifydata.favorite_genre[2][0] %></p>
-      </div>
-      <div class="bg-knoiz-violet-principale px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 60%;">
-        <p class="text-knoiz-blanc"><%= @current_user.spotifydata.favorite_genre[3][0] %></p>
-      </div>
-      <div class="bg-knoiz-violet-principale px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: 45%;">
-        <p class="text-knoiz-blanc"><%= @current_user.spotifydata.favorite_genre[4][0] %></p>
-      </div>
+      <% [90, 75, 70, 60, 45].each_with_index do |width, index| %>
+        <div class="bg-knoiz-violet-principale px-3 py-2 rounded-lg min-w-fit mt-1 mb-1" style="width: <%= width %>%;">
+          <p class="text-knoiz-blanc"><%= @current_user.spotifydata.favorite_genre[index][0] %></p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
+<!-- Your Top Listened -->
 <div data-controller="tops" class="w-full bg-knoiz-noir p-10 mb-10 rounded-3xl">
   <div class="flex flex-col size3:flex-row justify-between mb-6">
-    <div class="flex flex-row items-center mb-6 size3:mb-0">
-      <%= image_tag "spotify-logo.png", alt: "Spotify logo", class: "mr-4 w-auto h-[28px] size6:h-[35px] size4:h-[40px]" %>
-      <h1 class="text-lg size6:text-2xl size4:text-3xl font-medium text-knoiz-blanc">Your top Listened</h1>
-    </div>
+    <%= render 'shared/stats/header', title: 'Your Top Listened' %>
     <div class="flex flex-col items-start justify-center size6:flex-row size6:justify-start size6:items-center">
       <div x-data="{ dropdown: false }" class="relative inline-block text-left">
-        <div>
-          <button @click="dropdown = !dropdown" type="button" class="w-fit text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none">
-            <p id="object-type">Tracks</p>
-            <!-- Heroicon name: mini/chevron-down -->
-            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-            </svg>
-          </button>
-        </div>
-        <div 
-          @click.outside="dropdown = false"
-          x-show="dropdown"
-          x-transition:enter="transition ease-out duration-100"
-          x-transition:enter-start="transform opacity-0 scale-95"
-          x-transition:enter-end="transform opacity-100 scale-100"
-          x-transition:leave="transition ease-in duration-75"
-          x-transition:leave-start="transform opacity-100 scale-100"
-          x-transition:leave-end="transform opacity-0 scale-95"
-          class="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="menu-button"
-          tabindex="-1">
-          <div class="py-1" role="none">
-            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-            <a data-action="click->tops#tracks" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Tracks</a>
-            <a data-action="click->tops#artists" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Artists</a>
-          </div>
-        </div>
+        <% content = capture do %>
+          <a data-action="click->tops#tracks" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Tracks</a>
+          <a data-action="click->tops#artists" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Artists</a>
+        <% end %>
+        <%= render partial: "shared/stats/dropdown", locals: { object_id: 'object-type', default: 'Tracks', content: content } %>
       </div>
       <div x-data="{ dropdown: false }" class="ml-0 mt-2 size6:mt-0 size6:ml-2 relative inline-block text-left">
-        <div>
-          <button @click="dropdown = !dropdown" type="button" class="w-fit text-center flex flex-row items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none">
-            <p id="object-term">1 month</p>
-            <!-- Heroicon name: mini/chevron-down -->
-            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-            </svg>
-          </button>
-        </div>
-        <div 
-          @click.outside="dropdown = false"
-          x-show="dropdown"
-          x-transition:enter="transition ease-out duration-100"
-          x-transition:enter-start="transform opacity-0 scale-95"
-          x-transition:enter-end="transform opacity-100 scale-100"
-          x-transition:leave="transition ease-in duration-75"
-          x-transition:leave-start="transform opacity-100 scale-100"
-          x-transition:leave-end="transform opacity-0 scale-95"
-          class="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="menu-button"
-          tabindex="-1">
-          <div class="py-1" role="none">
-            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-            <a data-action="click->tops#short_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">1 month</a>
-            <a data-action="click->tops#medium_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">6 months</a>
-            <a data-action="click->tops#long_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">+1 year</a>
+        <% content = capture do %>
+          <a data-action="click->tops#short_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">1 month</a>
+          <a data-action="click->tops#medium_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">6 months</a>
+          <a data-action="click->tops#long_term" class="cursor-pointer text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">+1 year</a>
+        <% end %>
+        <%= render partial: "shared/stats/dropdown", locals: { object_id: 'object-term', default: '1 month', content: content } %>
+      </div>
+    </div>
+  </div>
+  <% ['tracks', 'artists'].each do |type| %>
+    <div id="<%= type %>" class="<%= type == 'tracks' ? '' : 'hidden' %>">
+      <% ['short_term', 'medium_term', 'long_term'].each do |term| %>
+        <div id="<%= "#{term}_#{type}" %>" class="<%= term != 'short_term' ? 'hidden' : '' %>">
+          <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+            <% if type == 'tracks' %>
+              <%= render partial: 'shared/stats/track_partial', locals: { tracks: instance_variable_get("@top_#{type}_#{term}") } %>
+            <% else %>
+              <%= render partial: 'shared/stats/artist_partial', locals: { artists: instance_variable_get("@top_#{type}_#{term}") } %>
+            <% end %>
+            <%= render partial: 'shared/stats/show_more', locals: { path: tops_path } %>
           </div>
         </div>
-      </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<!-- Recently played / Top Global-->
+<% [{ title: 'Recently played tracks', tracks: @recently_played, path: recently_path }, { title: 'Top 50 global charts tracks', tracks: @top_global_tracks, path: top_global_path }].each_with_index do |section, index| %>
+  <div class="w-full bg-knoiz-noir p-10 <%= 'mb-10' if index == 0 %> rounded-3xl">
+    <%= render 'shared/stats/header', title: section[:title] %>
+    <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+      <%= render partial: 'shared/stats/track_partial', locals: { tracks: section[:tracks] } %>
+      <%= render partial: 'shared/stats/show_more', locals: { path: section[:path] } %>
     </div>
   </div>
-  <div>
-    <!-- Track Part -->
-    <div id="tracks" class="">
-      <!-- Tracks Short Part -->
-      <div id="short_term_tracks" class="">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_tracks_short_term.each do |song| %>
-            <a href="<%= song.external_urls["spotify"] %>" target="_blank" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-                <img src="<%= song.album.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= song.name %></p>
-              <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.artists.first.name %></p>
-              <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.album.name %></p>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-          <%= link_to tops_path, class: "py-3 sm:py-0 flex flex-col inline-flex justify-center items-center rounded-3xl border border-transparent bg-knoiz-violet-principale text-lg font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
-            Show more
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          <% end %>
-        </div>
-      </div>
-      <!-- Tracks Medium Part -->
-      <div id="medium_term_tracks" class="hidden">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_tracks_medium_term.each do |song| %>
-            <a href="<%= song.external_urls["spotify"] %>" target="_blank" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-                <img src="<%= song.album.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= song.name %></p>
-              <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.artists.first.name %></p>
-              <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.album.name %></p>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-          <%= link_to tops_path, class: "py-3 sm:py-0 flex flex-col inline-flex justify-center items-center rounded-3xl border border-transparent bg-knoiz-violet-principale text-lg font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
-            Show more
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          <% end %>
-        </div>
-      </div>
-      <!-- Tracks Long Part -->
-      <div id="long_term_tracks" class="hidden">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_tracks_long_term.each do |song| %>
-            <a href="<%= song.external_urls["spotify"] %>" target="_blank" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-                <img src="<%= song.album.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= song.name %></p>
-              <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.artists.first.name %></p>
-              <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.album.name %></p>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-          <%= link_to tops_path, class: "py-3 sm:py-0 flex flex-col inline-flex justify-center items-center rounded-3xl border border-transparent bg-knoiz-violet-principale text-lg font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
-            Show more
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <!-- Artists Part -->
-    <div id="artists" class="hidden">
-      <!-- Artists Short Part -->
-      <div id="short_term_artists" class="">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_artists_short_term.each do |artist| %>
-            <a href="<%= artist.external_urls["spotify"] %>" target="_blank" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-                <img src="<%= artist.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= artist.name %></p>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-          <%= link_to tops_path, class: "py-3 sm:py-0 flex flex-col inline-flex justify-center items-center rounded-3xl border border-transparent bg-knoiz-violet-principale text-lg font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
-            Show more
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          <% end %>
-        </div>
-      </div>
-      <!-- Artists Medium Part -->
-      <div id="medium_term_artists" class="hidden">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_artists_medium_term.each do |artist| %>
-            <a href="<%= artist.external_urls["spotify"] %>" target="_blank" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-                <img src="<%= artist.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= artist.name %></p>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-          <%= link_to tops_path, class: "py-3 sm:py-0 flex flex-col inline-flex justify-center items-center rounded-3xl border border-transparent bg-knoiz-violet-principale text-lg font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
-            Show more
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          <% end %>
-        </div>
-      </div>
-      <!-- Artists Long Part -->
-      <div id="long_term_artists" class="hidden">
-        <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-          <% i = 1 %>
-          <% @top_artists_long_term.each do |artist| %>
-            <a href="<%= artist.external_urls["spotify"] %>" target="_blank" class="group">
-              <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-                <img src="<%= artist.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-              </div>
-              <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= artist.name %></p>
-            </a>
-            <% i = i + 1 %>
-          <% end %>
-          <%= link_to tops_path, class: "py-3 sm:py-0 flex flex-col inline-flex justify-center items-center rounded-3xl border border-transparent bg-knoiz-violet-principale text-lg font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
-            Show more
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="w-full bg-knoiz-noir p-10 mb-10 rounded-3xl">
-  <div class="flex flex-row items-center mb-6">
-    <%= image_tag "spotify-logo.png", alt: "Spotify logo", class: "mr-4 w-auto h-[28px] size6:h-[35px] size4:h-[40px]" %>
-    <h1 class="text-lg size6:text-2xl size4:text-3xl font-medium text-knoiz-blanc">Recently played tracks</h1>
-  </div>
-  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-    <% i = 1 %>
-    <% @recently_played.each do |song| %>
-      <a href="<%= song.external_urls["spotify"] %>" target="_blank" class="group">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-          <img src="<%= song.album.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-        </div>
-        <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= song.name %></p>
-        <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.artists.first.name %></p>
-        <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.album.name %></p>
-      </a>
-      <% i = i + 1 %>
-    <% end %>
-    <%= link_to recently_path, class: "py-3 sm:py-0 flex flex-col inline-flex justify-center items-center rounded-3xl border border-transparent bg-knoiz-violet-principale text-lg font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
-      Show more
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-      </svg>
-    <% end %>
-  </div>
-</div>
-<div class="w-full bg-knoiz-noir p-10 rounded-3xl">
-  <div class="flex flex-row items-center mb-6">
-    <%= image_tag "spotify-logo.png", alt: "Spotify logo", class: "mr-4 w-auto h-[28px] size6:h-[35px] size4:h-[40px]" %>
-    <h1 class="text-lg size6:text-2xl size4:text-3xl font-medium text-knoiz-blanc">Top 50 global charts tracks</h1>
-  </div>
-  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
-    <% i = 1 %>
-    <% @top_global_tracks.each do |song| %>
-      <a href="<%= song.external_urls["spotify"] %>" target="_blank" class="group">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-          <img src="<%= song.album.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-        </div>
-        <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= song.name %></p>
-        <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.artists.first.name %></p>
-        <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.album.name %></p>
-      </a>
-      <% i = i + 1 %>
-    <% end %>
-    <%= link_to top_global_path, class: "py-3 sm:py-0 flex flex-col inline-flex justify-center items-center rounded-3xl border border-transparent bg-knoiz-violet-principale text-lg font-medium text-white hover:bg-knoiz-violet-principale-hover focus:outline-none" do %>
-      Show more
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-      </svg>
-    <% end %>
-  </div>
-</div>
+<% end %>

@@ -1,20 +1,6 @@
 <div class="bg-spotify-noir w-full rounded-3xl">
-  <div class="flex flex-row items-center mb-6">
-    <%= image_tag "spotify-logo.png", alt: "Spotify logo", class: "mr-4 w-auto h-[28px] size6:h-[35px] size4:h-[40px]" %>
-    <h1 class="text-lg size6:text-2xl size4:text-3xl font-medium text-knoiz-blanc">Recently played tracks</h1>
-  </div>
-  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 xl:gap-x-8">
-    <% i = 1 %>
-    <% @recently_played.each do |song| %>
-      <a href="<%= song.external_urls["spotify"] %>" target="_blank" class="group">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden">
-          <img src="<%= song.album.images.first['url'] %>"  class="h-full w-full object-cover object-center group-hover:opacity-75">
-        </div>
-        <p class="mt-4 text-center text-sm font-medium text-knoiz-blanc"><%= i %># - <%= song.name %></p>
-        <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.artists.first.name %></p>
-        <p class="mt-1 text-center text-xs font-normal text-knoiz-gris-text"><%= song.album.name %></p>
-      </a>
-      <% i = i + 1 %>
-    <% end %>
+  <%= render 'shared/stats/header', title: 'Recently played tracks' %>
+  <div class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8">
+    <%= render partial: 'shared/stats/track_partial', locals: { tracks: @recently_played } %>
   </div>
 </div>

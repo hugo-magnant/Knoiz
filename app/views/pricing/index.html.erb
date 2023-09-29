@@ -1,11 +1,8 @@
-<!-- subscription-app/app/views/users/info.html.erb -->
 <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <div class="mx-auto my-auto">
   <h1 class="text-3xl font-medium text-knoiz-blanc mb-8">Knoiz - Stream smarter, not harder.</h1>
-  <!-- Comparison table -->
   <div class="bg-spotify-noir max-w-2xl lg:max-w-7xl rounded-3xl">
-    <!-- xs to lg -->
     <div class="space-y-24 lg:hidden">
       <section>
         <div class="mb-8 px-6 sm:px-4">
@@ -32,7 +29,6 @@
             <tr class="border-t border-gray-200">
               <th class="py-5 px-6 text-left text-sm font-normal text-knoiz-blanc sm:px-4" scope="row">Lastly played song.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                 </svg>
@@ -42,7 +38,6 @@
             <tr class="border-t border-gray-200">
               <th class="py-5 px-6 text-left text-sm font-normal text-knoiz-blanc sm:px-4" scope="row">Most listened genres.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/minus -->
                 <svg class="ml-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
                 </svg>
@@ -76,18 +71,8 @@
         <div class="mb-8 px-6 sm:px-4">
           <h2 class="text-lg font-medium leading-6 text-knoiz-blanc">Plus</h2>
           <p class="mt-4">
-            <% if @current_user %>
-              <% if @current_user.subscription.stripe_user_id.present? %>
-                <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">$1.99</span>
-                <span class="text-base font-medium text-knoiz-blanc">/wk</span>
-              <% else %>
-                <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">7 days free</span><br>
-                <span class="text-base font-medium text-knoiz-blanc">Then $1.99/wk</span>
-              <% end %>
-            <% else %>
-              <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">7 days free</span><br>
-              <span class="text-base font-medium text-knoiz-blanc">Then $1.99/wk</span>
-            <% end %>
+            <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">$0.99</span>
+            <span class="text-base font-medium text-knoiz-blanc">/wk</span>
           </p>
           <p class="mt-4 text-sm text-knoiz-blanc">Unlock all features with Knoiz Plus and get the ultimate music experience. Access exclusive characteristics to create personalized playlists and track detailed statistics of your Spotify account.</p>
           <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
@@ -111,7 +96,6 @@
             <tr class="border-t border-gray-200">
               <th class="py-5 px-6 text-left text-sm font-normal text-knoiz-blanc sm:px-4" scope="row">Lastly played song.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                 </svg>
@@ -121,7 +105,6 @@
             <tr class="border-t border-gray-200">
               <th class="py-5 px-6 text-left text-sm font-normal text-knoiz-blanc sm:px-4" scope="row">Most listened genres.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                 </svg>
@@ -131,7 +114,6 @@
             <tr class="border-t border-gray-200">
               <th class="py-5 px-6 text-left text-sm font-normal text-knoiz-blanc sm:px-4" scope="row">Your 50 top Listened.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                 </svg>
@@ -141,7 +123,6 @@
             <tr class="border-t border-gray-200">
               <th class="py-5 px-6 text-left text-sm font-normal text-knoiz-blanc sm:px-4" scope="row">50 Recently played tracks.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                 </svg>
@@ -151,7 +132,6 @@
             <tr class="border-t border-gray-200">
               <th class="py-5 px-6 text-left text-sm font-normal text-knoiz-blanc sm:px-4" scope="row">Top 50 global charts tracks.</th>
               <td class="py-5 pr-6 sm:pr-4">
-                <!-- Heroicon name: mini/check -->
                 <svg class="ml-auto h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                 </svg>
@@ -162,7 +142,6 @@
         </table>
       </section>
     </div>
-    <!-- lg+ -->
     <div class="hidden lg:block">
       <table class="h-px w-full table-fixed">
         <caption class="sr-only">
@@ -195,18 +174,8 @@
               <div class="flex h-full flex-col justify-between">
                 <div>
                   <p>
-                    <% if @current_user %>
-                      <% if @current_user.subscription.stripe_user_id.present? %>
-                        <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">$1.99</span>
-                        <span class="text-base font-medium text-knoiz-blanc">/wk</span>
-                      <% else %>
-                        <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">7 days free</span><br>
-                        <span class="text-base font-medium text-knoiz-blanc">Then $1.99/wk</span>
-                      <% end %>
-                    <% else%>
-                      <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">7 days free</span><br>
-                      <span class="text-base font-medium text-knoiz-blanc">Then $1.99/wk</span>
-                    <% end %>
+                    <span class="text-4xl font-bold tracking-tight text-knoiz-blanc">$0.99</span>
+                    <span class="text-base font-medium text-knoiz-blanc">/wk</span>
                   </p>
                   <p class="mt-4 text-sm text-knoiz-blanc">Unlock all features with Knoiz Plus and get the ultimate music experience. Access exclusive characteristics to create personalized playlists and track detailed statistics of your Spotify account.</p>
                 </div>
@@ -228,14 +197,12 @@
           <tr>
             <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-knoiz-blanc" scope="row">Lastly played song.</th>
             <td class="py-5 px-6">
-              <!-- Heroicon name: mini/check -->
               <svg class="h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
               </svg>
               <span class="sr-only">Included in Free</span>
             </td>
             <td class="py-5 px-6">
-              <!-- Heroicon name: mini/check -->
               <svg class="h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
               </svg>
@@ -245,14 +212,12 @@
           <tr>
             <th class="py-5 pl-6 pr-6 text-left text-sm font-normal text-knoiz-blanc" scope="row">Most listened genres.</th>
             <td class="py-5 px-6">
-              <!-- Heroicon name: mini/minus -->
               <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
               </svg>
               <span class="sr-only">Not included in Free</span>
             </td>
             <td class="py-5 px-6">
-              <!-- Heroicon name: mini/check -->
               <svg class="h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
               </svg>
@@ -265,7 +230,6 @@
               <span class="block text-sm text-knoiz-blanc">Only five</span>
             </td>
             <td class="py-5 px-6">
-              <!-- Heroicon name: mini/check -->
               <svg class="h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
               </svg>
@@ -278,7 +242,6 @@
               <span class="block text-sm text-knoiz-blanc">Only five</span>
             </td>
             <td class="py-5 px-6">
-              <!-- Heroicon name: mini/check -->
               <svg class="h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
               </svg>
@@ -291,7 +254,6 @@
               <span class="block text-sm text-knoiz-blanc">Only five</span>
             </td>
             <td class="py-5 px-6">
-              <!-- Heroicon name: mini/check -->
               <svg class="h-5 w-5 text-knoiz-violet-secondaire" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
               </svg>
