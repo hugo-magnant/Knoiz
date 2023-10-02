@@ -66,7 +66,7 @@
             <% end %>
           </nav>
         </div>
-        <% if !session[:user_id] %>
+        <% if !session[:user_id] or !@current_user %>
           <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "mb-6 mx-2 text-center items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
         <% else %>
           <%= link_to info_path, class: "rounded-3xl mb-6 bg-knoiz-gris py-3.5 px-3.5 text-sm font-semibold text-white hover:bg-white/20" do %>
@@ -135,7 +135,7 @@
         <% end %>
       </nav>
     </div>
-    <% if !session[:user_id] %>
+    <% if !session[:user_id] or !@current_user%>
       <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "mb-6 mx-2 text-center items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
     <% else %>
       <%= link_to info_path, class: "rounded-3xl mb-6 bg-knoiz-gris py-3.5 px-3.5 text-sm font-semibold text-white hover:bg-white/20" do %>
