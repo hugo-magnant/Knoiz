@@ -56,7 +56,7 @@ class HomeController < ApplicationController
 
   # Vérifie si l'utilisateur est éligible pour créer une playlist
   def eligible_for_playlist?
-    wallet_time_limit = @current_user.subscription.active ? 1.minute.ago : 24.hours.ago
+    wallet_time_limit = @current_user.subscription.active ? 1.minute.ago : 1.week.ago
     @current_user.wallet.timestamp < wallet_time_limit
   end
 

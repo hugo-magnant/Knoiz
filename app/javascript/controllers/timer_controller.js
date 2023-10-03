@@ -55,10 +55,11 @@ export default class extends Controller {
         this.toggleButtonState(submitBtn, true);
       } else {
         // Mise à jour de l'affichage du compte à rebours
+        const days = Math.floor(timeLeft / (3600 * 24));
         const hours = Math.floor(timeLeft / 3600);
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
-        this.countdownTarget.innerText = `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        this.countdownTarget.innerText = `${days}d ${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
       }
     }, 1000);
   }
