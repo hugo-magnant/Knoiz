@@ -57,7 +57,7 @@ export default class extends Controller {
       } else {
         // Mise à jour de l'affichage du compte à rebours
         const days = Math.floor(timeLeft / (3600 * 24));
-        const hours = Math.floor(timeLeft / 3600);
+        const hours = Math.floor((timeLeft % (3600 * 24)) / 3600);
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
         this.countdownTarget.innerText = `${days}d ${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`;
