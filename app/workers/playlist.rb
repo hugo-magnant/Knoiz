@@ -1,6 +1,5 @@
 class Playlist
   include Sidekiq::Worker
-
   # Options spécifiques à Sidekiq
   sidekiq_options retry: false
 
@@ -30,42 +29,86 @@ class Playlist
 
   # Méthode pour générer le titre de la playlist
   def generate_playlist_title(client, text_search)
-    response_playlist_title = client.completions(
-      parameters: {
-        model: "text-davinci-003",
-        prompt: "Create a playlist title that matches this description : \"#{text_search}\"",
-        temperature: 0.7,
-        max_tokens: 100,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      },
-    )
 
-    playlist_title = response_playlist_title["choices"].map { |c| c["text"] }.join
+      require 'net/http'
+      require 'json'
+      require 'uri'
+      
+      uri = URI('https://api.openai.com/v1/chat/completions')
+      request = Net::HTTP::Post.new(uri)
+      request.content_type = 'application/json'
+      request['Authorization'] = "Bearer #{ENV['OPENAI_KEY']}"
+      request.body = JSON.dump({
+        "model" => "gpt-4-turbo-preview",
+        "messages" => [
+          {
+            "role" => "system",
+            "content" => "Create a playlist title without quotes that matches this description : #{text_search}"
+          }
+        ],
+        "temperature" => 1,
+        "max_tokens" => 100,
+        "top_p" => 1,
+        "frequency_penalty" => 0,
+        "presence_penalty" => 0
+      })
+      
+      response_playlist_title = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+        http.request(request)
+      end
+          
+    response_json = JSON.parse(response_playlist_title.body)
+
+    playlist_title = response_json["choices"].first["message"]["content"]
     clean_string(playlist_title)
+
+    return playlist_title
   end
 
   # Méthode pour générer la liste de chansons
   def generate_song_list(client, text_search)
-    response = client.completions(
-      parameters: {
-        model: "text-davinci-003",
-        prompt: "Create in one column : a playlist of strictly 30 songs made by strictly 30 different artists in the same style and the same era of #{text_search}. Don't put the same music more than once. Items must be separated by |. Song and artist must be separate by -. Don't write the feats, only the main music artist.",
-        temperature: 0.7,
-        max_tokens: 500,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      },
-    )
+    require 'net/http'
+    require 'json'
+    require 'uri'
+    
+    uri = URI('https://api.openai.com/v1/chat/completions')
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = 'application/json'
+    request['Authorization'] = "Bearer #{ENV['OPENAI_KEY']}"
+    request.body = JSON.dump({
+      "model" => "gpt-4-turbo-preview",
+      "messages" => [
+        {
+          "role" => "system",
+          "content" => "Create a playlist of strictly 30 songs by 30 different artists, all in a similar style and era to #{text_search}. Each song should be unique without any repetitions and should only list the main artist, excluding any featured artists. I want the output presented as text that resembles JSON format, with each entry combining the song and artist into a single string under a 'Track' key. The entries should be formatted like this: ( Track : Song Title - Artist Name ). Please generate the playlist in this mock JSON text format."
+        }
+      ],
+      "temperature" => 1,
+      "max_tokens" => 800,
+      "top_p" => 1,
+      "frequency_penalty" => 0,
+      "presence_penalty" => 0
+    })
+    
+    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+      http.request(request)
+    end
 
-    response_ai = response["choices"].map { |c| c["text"] }.join
-    clean_string(response_ai).split("|")
+    response_json = JSON.parse(response.body)
+    response_ai = response_json["choices"].first["message"]["content"]
+
+    tracks_array = JSON.parse(response_ai.gsub("```json", "").gsub("```", "").strip)
+# Extraire seulement les chaînes "Track"
+    track_strings = tracks_array.map { |track| track["Track"] }
+
+    return track_strings
+
   end
 
   # Méthode pour nettoyer les chaînes de caractères provenant d'OpenAI
   def clean_string(str)
-    str.gsub(/\\n|\"|\[|\]|\\/, "")
+    # Supprimer les caractères d'échappement, les guillemets, les crochets, et les backslashes
+    str = str.gsub(/\\n|\"|\[|\]|\\/, "")
+    
   end
 end

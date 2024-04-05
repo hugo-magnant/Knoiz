@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: Wisdom_development
+  database: knoiz_development
   pool: 5
   username: hugo
   password: root
@@ -10,7 +10,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: Wisdom_test
+  database: knoiz_test
   pool: 5
   username: hugo
   password: root
@@ -18,7 +18,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: Wisdom_production
+  database: knoiz_production
   pool: 5
   username: <%= ENV['POSTGRESQL_USER'] %>
   password: <%= ENV['POSTGRESQL_PASSWORD'] %>
