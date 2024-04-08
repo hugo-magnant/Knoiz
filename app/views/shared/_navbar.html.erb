@@ -8,7 +8,7 @@
     x-transition:leave="transition-opacity ease-linear duration-300"
     x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0"
-    class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg"
+    class="absolute right-0 w-56 mt-2 origin-top-right rounded-md shadow-lg"
     class="fixed inset-0 bg-gray-600 bg-opacity-75">
     </div>
     <div 
@@ -20,28 +20,28 @@
       x-transition:leave-start="translate-x-0"
       x-transition:leave-end="-translate-x-full"
       class="fixed inset-0 z-40 flex">
-      <div class="relative flex w-full p-10 max-w-xs flex-1 flex-col bg-knoiz-noir">
-        <div class="absolute top-0 right-0 -mr-12 pt-2">
-          <button type="button" @click="isOpen = !isOpen" class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+      <div class="relative flex flex-col flex-1 w-full max-w-xs p-10 bg-knoiz-noir">
+        <div class="absolute top-0 right-0 pt-2 -mr-12">
+          <button type="button" @click="isOpen = !isOpen" class="flex items-center justify-center w-10 h-10 ml-1 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <span class="sr-only">Close sidebar</span>
-            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
-        <div class="flex flex-1 flex-col overflow-y-auto">
-          <div class="flex flex-shrink-0 items-center justify-center mt-6 mb-6">
+        <div class="flex flex-col flex-1 overflow-y-auto">
+          <div class="flex items-center justify-center flex-shrink-0 mt-6 mb-6">
             <%= image_tag "knoiz-logo.png", alt: "Knoiz logo", class: "h-8 w-auto" %>
           </div>
-          <nav class="mt-5 flex-1 px-2">
+          <nav class="flex-1 px-2 mt-5">
             <a href="<%= root_path %>" class="mb-2 text-gray-300 <% if params[:controller] == "home" %>bg-knoiz-gris<% end %> hover:bg-knoiz-gris hover:text-white text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-              <svg class="text-knoiz-blanc mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <svg class="flex-shrink-0 w-6 h-6 mr-3 text-knoiz-blanc" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
               </svg>
               Home
             </a>
             <a href="<%= stats_path %>" class="<% if display_stats? %>bg-knoiz-gris<% end %> mb-2 text-gray-300 hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-              <svg class="text-knoiz-blanc group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <svg class="flex-shrink-0 w-6 h-6 mr-3 text-knoiz-blanc group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
               </svg>
               Stats
@@ -52,20 +52,23 @@
               <%= nav_link("Top 50 global tracks", top_global_path, display_top_global?) %>
             <% end %>
             <a href="<%= pricing_path %>" class="text-gray-300 <% if params[:controller] == "pricing" %>bg-knoiz-gris<% end %> hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-              <svg class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <svg class="flex-shrink-0 w-6 h-6 mr-3 text-gray-400 group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
               </svg>
               Pricing
             </a>
             <% if @current_user.nil? || !@current_user.subscription.stripe_user_id.present? %>
-              <a>
-                <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-                  <%= form.submit "Upgrade to Plus", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
-                <% end %>
-              </a>
+              <%= form_with url: '/payments/create_checkout_session', data: { turbo: false } do |form| %>
+                <%= form.hidden_field :price, value: 30 %>
+                <%= form.submit "Get Unlimited Access 🔓", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
+              <% end %>
+            <% else %>
+              <button onclick="window.location.href='mailto:hugues.staz@gmail.com'" class="mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-rouge px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-rouge-hover focus:outline-none">Feedback 🤌</button>
             <% end %>
+            <a href="https://www.producthunt.com/posts/findname?utm_source=badge-featured&amp;utm_medium=badge&amp;utm_souce=badge-findname" target="_blank"><img class="mt-6" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=445970&amp;theme=light"></a>
           </nav>
         </div>
+        <a href="https://twitter.com/HuguesStaz" target="_blank" class="flex flex-row items-center justify-center mb-6 cursor-pointer w-full text-center rounded-2xl border border-transparent px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none bg-[#B870FF]"><%= image_tag "hugues_staz.png", class: "h-8 w-8 -ml-4 mr-2 rounded-full" %>@HuguesStaz</a>             
         <% if !session[:user_id] or !@current_user %>
           <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "mb-6 mx-2 text-center items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
         <% else %>
@@ -91,26 +94,26 @@
           <% end %>
         <% end %>
       </div>
-      <div class="w-14 flex-shrink-0">
+      <div class="flex-shrink-0 w-14">
       </div>
     </div>
   </div>
 </div>
-<div class="hidden fixed inset-y-0 size2:flex pt-10 pl-10 pb-10 w-72 size2:flex-col">
-  <div class="flex min-h-0 flex-1 flex-col bg-knoiz-noir">
-    <div class="flex flex-1 flex-col overflow-y-auto">
-      <div class="flex flex-shrink-0 items-center justify-center mt-6 mb-6">
+<div class="fixed inset-y-0 hidden pt-10 pb-10 pl-10 size2:flex w-72 size2:flex-col">
+  <div class="flex flex-col flex-1 min-h-0 bg-knoiz-noir">
+    <div class="flex flex-col flex-1 overflow-y-auto">
+      <div class="flex items-center justify-center flex-shrink-0 mt-6 mb-6">
         <%= image_tag "knoiz-logo.png", alt: "Knoiz logo", class: "h-8 w-auto" %>
       </div>
-      <nav class="w-full mt-5 flex-1 px-2">
+      <nav class="flex-1 w-full px-2 mt-5">
         <a href="<%= root_path %>" class="mb-2 text-gray-300 <% if params[:controller] == "home" %>bg-knoiz-gris<% end %> hover:bg-knoiz-gris hover:text-white text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-          <svg class="text-knoiz-blanc mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <svg class="flex-shrink-0 w-6 h-6 mr-3 text-knoiz-blanc" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
           </svg>
           Home
         </a>
         <a href="<%= stats_path %>" class="<% if display_stats? %>bg-knoiz-gris<% end %> mb-2 text-gray-300 hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-          <svg class="text-knoiz-blanc group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <svg class="flex-shrink-0 w-6 h-6 mr-3 text-knoiz-blanc group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
           </svg>
           Stats
@@ -121,20 +124,24 @@
           <%= nav_link("Top 50 global tracks", top_global_path, display_top_global?) %>
         <% end %>
         <a href="<%= pricing_path %>" class="text-gray-300 <% if params[:controller] == "pricing" %>bg-knoiz-gris<% end %> hover:bg-knoiz-gris hover:text-white group flex items-center px-3.5 py-3.5 text-sm font-medium rounded-2xl">
-          <svg class="text-gray-400 group-hover:text-gray-300 mr-3 flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <svg class="flex-shrink-0 w-6 h-6 mr-3 text-gray-400 group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
           </svg>
           Pricing
         </a>
-        <% if @current_user.nil? || !@current_user.subscription.stripe_user_id.present? %>
-          <a>
-            <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-              <%= form.submit "Upgrade to Plus", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
-            <% end %>
-          </a>
+        <% if @current_user.nil? || !@current_user.subscription.active %>
+          <%= form_with url: '/payments/create_checkout_session', data: { turbo: false } do |form| %>
+            <%= form.hidden_field :price, value: 30 %>
+            <%= form.submit "Get Unlimited Access 🔓", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
+          <% end %>
+        <% else %>
+          <button onclick="window.location.href='mailto:hugues.staz@gmail.com'" class="mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-rouge px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-rouge-hover focus:outline-none">Feedback 🤌</button>
         <% end %>
+        <a class="mt-6" href="https://www.producthunt.com/posts/findname?utm_source=badge-featured&amp;utm_medium=badge&amp;utm_souce=badge-findname" target="_blank"><img class="mt-6" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=445970&amp;theme=light"></a>
       </nav>
     </div>
+    <a href="https://twitter.com/HuguesStaz" target="_blank" class="flex flex-row items-center justify-center mb-6 cursor-pointer w-full text-center rounded-2xl border border-transparent px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none bg-[#B870FF]"><%= image_tag "hugues_staz.png", class: "h-8 w-8 -ml-4 mr-2 rounded-full" %>@HuguesStaz</a>             
+
     <% if !session[:user_id] or !@current_user%>
       <%= link_to 'Sign in with Spotify', "/auth/spotify", method: :post, class: "mb-6 mx-2 text-center items-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
     <% else %>
@@ -153,6 +160,9 @@
               <p class="text-sm font-medium text-white">Knoiz Free</p>
             <% else %>
               <p class="text-sm font-medium text-white">Knoiz Plus</p>
+            <% end %>
+            <% if @current_user && !@current_user.subscription.active %>
+              <span class="<%= @current_user.wallet.token != '0' ? 'text-knoiz-violet' : 'text-knoiz-rouge' %>"><%= @current_user.wallet.token %> Free token</span>
             <% end %>
             <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
           </div>

@@ -15,12 +15,10 @@ Rails.application.routes.draw do
   get "/auth/spotify", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: "logout"
 
-  post "/checkout_session/create", to: "checkout_session#create"
-
-  get "subscriptions/new"
-  get "subscriptions/create"
-  get "subscriptions/resume"
-  get "subscriptions/cancel", to: "subscriptions#cancel", :as => :cancel
+  get 'payments/success', to: 'payments#success'
+  get 'payments/cancel', to: 'payments#cancel'
+  post 'payments/create_checkout_session', to: 'payments#create_checkout_session'
+  
 
   get "/users/charge", to: "users#charge"
   get "/users/info", to: "users#info", :as => :info

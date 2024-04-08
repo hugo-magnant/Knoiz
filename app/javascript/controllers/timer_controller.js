@@ -13,11 +13,12 @@ export default class extends Controller {
     const submitBtn = document.getElementById("submitBtn");
 
     // Vérification de l'état de l'abonnement
-    const hasSubscription = this.element.getAttribute("data-subscription") === "true";
-    
+    const hasSubscription =
+      this.element.getAttribute("data-subscription") === "true";
+
     // Calcul du temps restant en fonction de l'abonnement
     const oneWeekInSeconds = 7 * 24 * 60 * 60;
-    const timeLeft = hasSubscription ? 60 - (now - timestamp) : oneWeekInSeconds - (now - timestamp);
+    const timeLeft = 60 - (now - timestamp);
 
     if (timeLeft > 0) {
       // Démarrage du compte à rebours
@@ -60,7 +61,11 @@ export default class extends Controller {
         const hours = Math.floor((timeLeft % (3600 * 24)) / 3600);
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
-        this.countdownTarget.innerText = `${days}d ${hours.toString().padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`;
+        this.countdownTarget.innerText = `${days}d ${hours
+          .toString()
+          .padStart(2, "0")}h ${minutes.toString().padStart(2, "0")}m ${seconds
+          .toString()
+          .padStart(2, "0")}s`;
       }
     }, 1000);
   }

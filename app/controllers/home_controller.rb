@@ -9,8 +9,11 @@ class HomeController < ApplicationController
 
   def create_playlist
     create_playlist_worker
-    update_wallet_timestamp
+    update_wallet
     flash[:notice] = success_message
+    if !@current_user.subscription.active
+      @current_user.wallet.update(token: '0')
+    end
     redirect_to root_path
   end
 
@@ -32,8 +35,11 @@ class HomeController < ApplicationController
   # Vérifie si l'utilisateur est éligible pour créer une playlist
   def check_eligibility
     return if eligible_for_playlist?
-
-    flash[:alert] = "You can't create a playlist now."
+    if @current_user.subscription.active == false && @current_user.wallet.token == '0'
+      flash[:alert] = "You don't have any tokens left."
+    else
+      flash[:alert] = "You can't create a playlist now."
+    end
     redirect_to root_path
   end
 
@@ -54,10 +60,13 @@ class HomeController < ApplicationController
     @current_user.profile.update(timestamp: Time.now, image: new_spotify_user.images.first&.dig("url"))
   end
 
-  # Vérifie si l'utilisateur est éligible pour créer une playlist
   def eligible_for_playlist?
-    wallet_time_limit = @current_user.subscription.active ? 1.minute.ago : 1.week.ago
-    @current_user.wallet.timestamp < wallet_time_limit
+    if @current_user.subscription.active || (@current_user.wallet.token.present? && @current_user.wallet.token == '1')
+      wallet_time_limit = 1.minute.ago
+      @current_user.wallet.timestamp < wallet_time_limit
+    else
+      false
+    end
   end
 
   # Lance le worker pour créer la playlist
@@ -67,7 +76,7 @@ class HomeController < ApplicationController
   end
 
   # Met à jour le timestamp du "wallet" de l'utilisateur
-  def update_wallet_timestamp
+  def update_wallet
     @current_user.wallet.update!(timestamp: Time.now)
   end
 

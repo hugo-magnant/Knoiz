@@ -1,29 +1,16 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
 <script src="https://js.stripe.com/v3/"></script>
-<div class="h-full w-full flex items-center justify-center">
-  <div class="bg-knoiz-noir sm:mx-auto sm:w-full sm:max-w-md p-8 rounded-3xl">
-    <h1 class="text-3xl font-medium text-knoiz-blanc mb-8">User profile</h1>
-    <% if @subscription.active %>
+<div class="flex items-center justify-center w-full h-full">
+  <div class="p-8 bg-knoiz-noir sm:mx-auto sm:w-full sm:max-w-md rounded-3xl">
+    <h1 class="mb-8 text-3xl font-medium text-knoiz-blanc">User profile</h1>
+    <% if @subscription.active && @subscription_info[:expires_at].present? %>
       <h2 class="text-white">Your current plan is Knoiz Plus.</h2>
-      <% if @subscription_info[:canceled_at].present? %>
-        <p class="text-white">You requested cancellation on : <%= @subscription_info[:canceled_at] %>.</p>
-        <p class="text-white">You can keep using the subscription up until : <%= @subscription_info[:renews_on] %>.</p>
-      <% else %>
-        <p class="text-white">Renews on : <%= @subscription_info[:renews_on] %></p>
-      <% end %>
-      <% if @current_user.subscription.canceled == false %>
-        <%= form_tag url_for(:controller => 'subscriptions', :action => 'cancel'), method: :get do %>
-          <%= submit_tag "Cancel my subscription", class: "mt-4 cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-knoiz-orange px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-knoiz-orange-hover focus:outline-none" %>
-        <% end %>
-      <% else %>
-        <%= form_tag url_for(:controller => 'subscriptions', :action => 'resume'), method: :get do %>
-          <%= submit_tag "Resume my subscription", class: "mt-4 cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-knoiz-violet-principale px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
-        <% end %>
-      <% end %>
+      <p class="text-white">You have Knoiz Plus until <%= @subscription_info[:expires_at].strftime("%d %B %Y") %>.</p>
     <% else %>
       <h2 class="text-white">Your current plan is Knoiz Free.</h2>
-      <%= form_with url: '/checkout_session/create', data: { turbo: false } do |form| %>
-        <%= form.submit "Upgrade to Knoiz Plus", class: "mt-4 cursor-pointer w-full text-center items-center rounded-md border border-transparent bg-knoiz-violet-principale px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
+      <%= form_with url: '/payments/create_checkout_session', data: { turbo: false } do |form| %>
+        <%= form.hidden_field :price, value: 30 %>
+        <%= form.submit "Get Unlimited Access 🔓", class: "mt-6 cursor-pointer w-full text-center rounded-2xl border border-transparent bg-knoiz-violet-principale px-3.5 py-3.5 text-base font-medium text-white shadow-sm hover:bg-knoiz-violet-principale-hover focus:outline-none" %>
       <% end %>
     <% end %>
     <%= form_tag url_for(:controller => 'sessions', :action => 'destroy'), method: :delete do %>

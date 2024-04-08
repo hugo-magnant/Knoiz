@@ -1,45 +1,46 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: [
-    './public/*.html',
-    './app/helpers/**/*.rb',
-    './app/javascript/**/*.js',
-    './app/views/**/*.{erb,haml,html,slim}'
+    "./public/*.html",
+    "./app/helpers/**/*.rb",
+    "./app/javascript/**/*.js",
+    "./app/views/**/*.{erb,haml,html,slim}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['-apple-system', ...defaultTheme.fontFamily.sans],
+        sans: ["-apple-system", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'knoiz': {
-          'noir': '#0A0A0A',
-          'gris': '#141414',
-          'violet-principale': '#5A189A',
-          'violet-principale-hover': '#661CB0',
-          'violet-secondaire': '#9D4EDD',
-          'blanc': '#f4effa',
-          'orange': '#FFBF00',
-          'orange-hover': '#FFCC33',
-          'rouge': '#F72C25',
-          'rouge-hover': '#F8403A',
-          'gris-text': '#ADADAD'
+        knoiz: {
+          noir: "#0A0A0A",
+          gris: "#141414",
+          "violet-principale": "#5A189A",
+          "violet-principale-hover": "#661CB0",
+          "violet-secondaire": "#9D4EDD",
+          blanc: "#f4effa",
+          orange: "#FFBF00",
+          "orange-hover": "#FFCC33",
+          rouge: "#F72C25",
+          "rouge-hover": "#F8403A",
+          "gris-text": "#ADADAD",
         },
-        },
-        screens: {
-          'size1': '1700px',
-          'size2': '1130px',
-          'size3': '800px',
-          'size4': '554px',
-          'size5': '500px',
-          'size6': '400px'
-        },
+      },
+      screens: {
+        size1: "1700px",
+        size2: "1130px",
+        size3: "800px",
+        size4: "554px",
+        size5: "500px",
+        size6: "400px",
+        test: "1546px",
+      },
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/typography'),
-  ]
-}
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/typography"),
+  ],
+};

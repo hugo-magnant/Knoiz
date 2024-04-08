@@ -14,21 +14,14 @@ module StripeSubscriptionConcern
     # Si l'objet d'abonnement est nil, quitte la méthode
     return unless subscription
 
-    # Si active est à true mais que stripe_user_id est nil,
-    # alors mettre active à false, stripe_subscription_id à nil et canceled à false.
-    if subscription.active && subscription.stripe_user_id.nil?
-      subscription.update(
-        active: false,
-        stripe_subscription_id: nil,
-        canceled: false,
-      )
-      return
+    # Vérifie si l'abonnement est actif
+    if subscription.active?
+      # Vérifie si l'abonnement a expiré
+      if subscription.expires_at && subscription.expires_at < Time.current
+        subscription.update(active: false, expires_at: nil)
+        subscription.save
+      end
     end
 
-    # Si l'abonnement est actif, alors le service `StripeSubscriptionUpdater` est appelé.
-    return unless subscription.active
-
-    # Crée une nouvelle instance de StripeSubscriptionUpdater et appelle sa méthode call pour mettre à jour l'abonnement
-    StripeSubscriptionUpdater.new(@current_user).call
   end
 end
