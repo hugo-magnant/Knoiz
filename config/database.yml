@@ -18,7 +18,9 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: knoiz_production
+  database: knoiz_db
   pool: 5
-  username: <%= ENV['POSTGRESQL_USER'] %>
+  username: knoiz
   password: <%= ENV['POSTGRESQL_PASSWORD'] %>
+  host: localhost
+  port: 5432
