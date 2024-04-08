@@ -9,7 +9,7 @@ gem "importmap-rails"
 gem "jbuilder"
 gem 'pg'
 gem "puma", "~> 5.0"
-gem "rails", "~> 7.0.4", ">= 7.0.4.1"
+gem "rails", ">= 7.0.8.1"
 gem "redis"
 gem 'rspotify'
 gem "ruby-openai"
