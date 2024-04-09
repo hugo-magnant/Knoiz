@@ -2,3 +2,5 @@
 :queues:
   - default
   - mailers
+:redis:
+  url: "redis://localhost:6380"
