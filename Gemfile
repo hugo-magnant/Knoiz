@@ -5,6 +5,7 @@ ruby "3.3.0"
 
 gem "bootsnap", require: false
 gem 'dotenv-rails', require: 'dotenv/rails-now'
+gem 'httparty'
 gem "importmap-rails"
 gem "jbuilder"
 gem 'pg'
