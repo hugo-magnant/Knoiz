@@ -1,0 +1,12 @@
+[0;1;32m●[0m sidekiq.service - Sidekiq Server for Knoiz
+     Loaded: loaded (/etc/systemd/system/sidekiq.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Wed 2024-04-10 14:58:01 UTC; 3min 40s ago
+   Main PID: 11705 (ruby)
+      Tasks: 11 (limit: 9478)
+     Memory: 119.2M
+        CPU: 2.546s
+     CGroup: /system.slice/sidekiq.service
+             └─11705 "sidekiq 7.2.2 Knoiz [0 of 5 busy]" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+Apr 10 14:58:01 srv476911 systemd[1]: Started Sidekiq service for the Knoiz application.
+Apr 10 14:58:03 srv476911 bundle[11705]: ###############################!!!!!!!!!!!!!!!!!!!!!!#########################

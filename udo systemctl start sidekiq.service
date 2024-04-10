@@ -1,0 +1,20 @@
+[0;1;32m●[0m sidekiq.service - Sidekiq service for the Knoiz application
+     Loaded: loaded (/etc/systemd/system/sidekiq.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Wed 2024-04-10 14:21:21 UTC; 24min ago
+   Main PID: 728 (ruby)
+      Tasks: 11 (limit: 9478)
+     Memory: 125.7M
+        CPU: 5.407s
+     CGroup: /system.slice/sidekiq.service
+             └─728 "sidekiq 7.2.2 Knoiz [0 of 5 busy]" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+Apr 10 14:25:26 srv476911 bundle[728]: 2024-04-10T14:25:26.635Z pid=728 tid=jn4 WARN: RedisClient::CannotConnectError: Connection refused - connect(2) for 127.0.0.1:6380 (redis://localhost:6380)
+Apr 10 14:25:26 srv476911 bundle[728]: 2024-04-10T14:25:26.635Z pid=728 tid=jn4 WARN:
+Apr 10 14:25:26 srv476911 bundle[728]: 2024-04-10T14:25:26.636Z pid=728 tid=jn4 ERROR: Connection refused - connect(2) for 127.0.0.1:6380 (redis://localhost:6380)
+Apr 10 14:25:26 srv476911 bundle[728]: 2024-04-10T14:25:26.636Z pid=728 tid=jn4 WARN: RedisClient::CannotConnectError: Connection refused - connect(2) for 127.0.0.1:6380 (redis://localhost:6380)
+Apr 10 14:25:26 srv476911 bundle[728]: 2024-04-10T14:25:26.636Z pid=728 tid=jn4 WARN:
+Apr 10 14:25:32 srv476911 bundle[728]: 2024-04-10T14:25:32.535Z pid=728 tid=joc INFO: Redis is online, 61.124481516 sec downtime
+Apr 10 14:25:32 srv476911 bundle[728]: 2024-04-10T14:25:32.535Z pid=728 tid=jnk INFO: Redis is online, 61.129011039000005 sec downtime
+Apr 10 14:25:32 srv476911 bundle[728]: 2024-04-10T14:25:32.635Z pid=728 tid=jm4 INFO: Redis is online, 61.223357678999974 sec downtime
+Apr 10 14:25:32 srv476911 bundle[728]: 2024-04-10T14:25:32.635Z pid=728 tid=jp0 INFO: Redis is online, 61.22562706900001 sec downtime
+Apr 10 14:25:32 srv476911 bundle[728]: 2024-04-10T14:25:32.636Z pid=728 tid=jmg INFO: Redis is online, 61.229127989000006 sec downtime
