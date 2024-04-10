@@ -1,6 +1,6 @@
 class Stats
   include Sidekiq::Worker
-
+  queue_as :default
   # Méthode appelée pour exécuter la tâche en arrière-plan
   def perform(spotify_user_content, spotify_user_id)
     # Initialisation des objets User et RSpotify::User

@@ -1,6 +1,6 @@
 class Create
   include Sidekiq::Worker
-
+  queue_as :default
   # Options spécifiques à Sidekiq
   sidekiq_options retry: false
 

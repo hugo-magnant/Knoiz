@@ -1,6 +1,6 @@
 :concurrency: 5
 :queues:
-  - default
-  - mailers
+  - knoiz_development_default
+  - knoiz_production_default
 :redis:
   url: "redis://localhost:6380"
