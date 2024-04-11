@@ -1,0 +1,20 @@
+[0;1;32m●[0m knoiz.service - Puma HTTP Server for Knoiz
+     Loaded: loaded (/etc/systemd/system/knoiz.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Wed 2024-04-10 07:49:38 UTC; 12s ago
+   Main PID: 13081 (ruby)
+      Tasks: 14 (limit: 9478)
+     Memory: 106.9M
+        CPU: 1.484s
+     CGroup: /system.slice/knoiz.service
+             └─13081 "puma 6.4.2 (tcp://0.0.0.0:3002) [Knoiz]" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
+
+Apr 10 07:49:38 srv476911 systemd[1]: knoiz.service: Consumed 1.505s CPU time.
+Apr 10 07:49:38 srv476911 systemd[1]: Started Puma HTTP Server for Knoiz.
+Apr 10 07:49:39 srv476911 bundle[13081]: Puma starting in single mode...
+Apr 10 07:49:39 srv476911 bundle[13081]: * Puma version: 6.4.2 (ruby 3.3.0-p0) ("The Eagle of Durango")
+Apr 10 07:49:39 srv476911 bundle[13081]: *  Min threads: 5
+Apr 10 07:49:39 srv476911 bundle[13081]: *  Max threads: 5
+Apr 10 07:49:39 srv476911 bundle[13081]: *  Environment: production
+Apr 10 07:49:39 srv476911 bundle[13081]: *          PID: 13081
+Apr 10 07:49:40 srv476911 bundle[13081]: * Listening on http://0.0.0.0:3002
+Apr 10 07:49:40 srv476911 bundle[13081]: Use Ctrl-C to stop

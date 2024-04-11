@@ -1,9 +1,9 @@
 class Playlist
   include Sidekiq::Worker
   queue_as :default
-  # Options spécifiques à Sidekiq
-  sidekiq_options retry: false
 
+  sidekiq_options retry: 5
+ 
   # Méthode appelée pour exécuter la tâche en arrière-plan
   def perform(text_search, spotify_user_content, spotify_user_id)
     # Initialiser le client OpenAI
