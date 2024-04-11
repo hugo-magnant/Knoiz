@@ -23,6 +23,12 @@ Rails.application.routes.draw do
   get "/users/charge", to: "users#charge"
   get "/users/info", to: "users#info", :as => :info
 
-  require "sidekiq/web"
-  mount Sidekiq::Web => "/sidekiq"
+  require 'sidekiq/web'
+
+  # Contrainte d'authentification
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV['SIDEKIQ_PASSWORD'] && password == ENV['SIDEKIQ_PASSWORD']
+  end
+  
+  mount Sidekiq::Web => '/sidekiq'
 end
